@@ -1,0 +1,167 @@
+.line {
+  width: 90vw;
+  border: 1rpx #f7f8fa solid;
+  position: relative;
+  margin: 10rpx 0;
+  left: -5vw
+}
+
+.box {
+  border-radius: 20rpx;
+  background: white;
+  margin: auto;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx 5vw;
+  width: 80vw;
+  line-height: 60rpx;
+  /* box-shadow: 10rpx 10rpx 10rpx rgba(0, 0, 0, 0.2); */
+}
+
+.title {
+  font-weight: bolder;
+  font-size: 40rpx;
+}
+
+.location {
+  color: grey;
+}
+
+.box_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete {
+  color: red;
+  margin: 0 10rpx;
+
+}
+
+.writer {
+  text-align: right;
+  margin-right: 10rpx;
+}
+
+.send {
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  margin: auto;
+  bottom: 80rpx;
+  right: 0;
+  left: 0;
+  box-shadow: 0rpx 0rpx 20rpx rgba(0, 0, 0, 0.25);
+  border-radius: 20rpx;
+}
+
+.send:active {
+  width: 90rpx;
+  height: 90rpx;
+  position: fixed;
+  margin: auto;
+  bottom: 86.25rpx;
+  right: 0;
+  left: 0;
+  box-shadow: 0rpx 0rpx 0rpx rgba(0, 0, 0, 0);
+  border-radius: 20rpx;
+}
+
+.send_bg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.send_box {
+  width: 70vw;
+  height: 90vh;
+  background-color: #f7f8fa;
+  border-radius: 20rpx;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top {
+  height: 100rpx;
+  background-color: #f7f8fa;
+  font-weight: bolder;
+  font-size: 40rpx;
+  text-align: center;
+  color: #000;
+  line-height: 100rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+
+.center input {
+  width: 90%;
+  border-radius: 20rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  padding: 10rpx;
+  background-color: #fff;
+  height: 60rpx;
+}
+
+textarea {
+  width: 90%;
+  border-radius: 20rpx;
+  margin: auto;
+  margin-top: 20rpx;
+  padding: 10rpx;
+  background-color: #fff;
+  height: 156rpx;
+}
+
+.send_button {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0;
+}
+
+button {
+  border: none;
+}
+
+.send_button button {
+  width: 50%;
+  background-color: #fff;
+  color: #000;
+  border: none;
+}
+
+.send_button button:active {
+  width: 50%;
+  background-color: #e6e3e3;
+  color: #000;
+
+}
+
+.b1 {
+  border-bottom-right-radius: 0;
+}
+
+.b1:active {
+  border-bottom-right-radius: 0;
+}
+
+.b2 {
+  border-bottom-left-radius: 0;
+}
+
+.b2 {
+  border-bottom-left-radius: 0;
+}

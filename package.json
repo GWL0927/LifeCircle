@@ -1,0 +1,14 @@
+{
+  "name": "lifecircle-master",
+  "version": "1.0.0",
+  "description": "拥有 表白墙、失物招领、兼职、闲置物品等功能",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vant/weapp": "^1.8.0"
+  }
+}

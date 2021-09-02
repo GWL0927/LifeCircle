@@ -1,0 +1,7 @@
+@import '/miniprogram_npm/@vant/weapp/common/index.wxss';
+page {
+  background-color: #f7f8fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+}

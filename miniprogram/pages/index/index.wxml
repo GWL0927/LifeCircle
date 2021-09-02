@@ -1,0 +1,33 @@
+<view class="all">
+  <swiper circular="true" indicator-dots="true" autoplay="true" interval="3000">
+    <swiper-item>
+      <image src="../../images/p1.jpg"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="../../images/p2.jpg"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="../../images/p3.jpg"></image>
+    </swiper-item>
+  </swiper>
+  <view class="line">
+    <view class="box" bindtap="biaobai">
+      <image src="../../images/biaobai.png"></image>
+      <view>表白墙</view>
+    </view>
+    <view class="box" bindtap="lost">
+      <image src="../../images/lost.png"></image>
+      <view>失物招领</view>
+    </view>
+  </view>
+  <view class="line">
+    <view class="box" bindtap="work">
+      <image src="../../images/work.png"></image>
+      <view>兼职</view>
+    </view>
+    <view class="box" bindtap="xianzhi">
+      <image src="../../images/xianzhi.png"></image>
+      <view>闲置买卖</view>
+    </view>
+  </view>
+</view>

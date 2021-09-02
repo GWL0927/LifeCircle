@@ -1,0 +1,104 @@
+.pages {
+  width: 98%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.all {
+  width: 90vw;
+  height: 92vh;
+  margin: auto;
+  overflow: hidden;
+}
+
+.box {
+  width: 84vw;
+  border-radius: 20rpx;
+  background-color: white;
+  margin-top: 20rpx;
+  padding: 3vw;
+  /* box-shadow: 10rpx 10rpx 10rpx rgba(0, 0, 0, 0.2); */
+}
+
+.box_top {
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  color: rgba(69, 90, 100, 0.6);
+}
+
+.line {
+  width: 82vw;
+  border: 1rpx #f7f8fa solid;
+  position: relative;
+  left: 1vw;
+  margin: 15rpx 0;
+}
+
+.box_center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left {
+  width: 25%;
+}
+
+input, textarea {
+  width: 75%;
+  background-color: #fff;
+}
+
+input {
+  height: 30rpx;
+}
+
+/* 图片 */
+.images_box {
+  white-space: nowrap;
+  height: 150rpx;
+  width: 75%;
+  overflow: hidden
+}
+
+.img-box {
+  display: inline-block;
+  border: 5rpx;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.452);
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 35rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+/* 删除图片 */
+
+.img-delect {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  position: absolute;
+  right: -20rpx;
+  top: -20rpx;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  width: 100vw;
+  height: 8vh;
+  line-height: 8vh;
+  border: none;
+  border-radius: 0;
+  background-color: #fff;
+  color: #000;
+  position: fixed;
+  bottom: 0
+}
+

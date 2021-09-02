@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/temp/temp",
+    "pages/work/work",
+    "pages/biaobai/biaobai",
+    "pages/mine/mine",
+    "pages/lost/lost",
+    "pages/xianzhi/xianzhi",
+    "pages/send/send"
+  ],
+  "tabBar": {
+    "color": "#cdcdcd",
+    "selectedColor": "#000",
+    "borderStyle": "black",
+    "backgroundColor": "#f7f8fa",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home1.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine1.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#f7f8fa",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 3000
+  }
+}

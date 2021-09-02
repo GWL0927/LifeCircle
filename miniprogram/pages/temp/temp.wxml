@@ -1,0 +1,46 @@
+<block wx:if="{{type=='work'}}">
+  <van-cell-group title="岗位信息" inset>
+    <van-cell title="兼职岗位" value="{{item.gangwei}}" />
+    <van-cell title="兼职地点" value="{{item.didian}}" />
+    <van-cell title="公司名称" value="{{item.gongsi}}" />
+    <van-cell title="薪资（元/月）" value="{{item.daiyu}}" />
+    <van-cell title="应聘要求" is-link  bind:click="cell1" arrow-direction="{{direction1}}" />
+    <view id="cell1" class="cell" wx:if="{{isShow1}}">
+      <text>{{item.yaoqiu}}</text>
+    </view>
+  </van-cell-group>
+  <van-cell-group title="工作信息" inset>
+    <van-cell title="工作时间" value="{{item.shijian}}" />
+    <van-cell title="工作内容" is-link bind:click="cell2" arrow-direction="{{direction2}}" />
+    <view id="cell2" class="cell" wx:if="{{isShow2}}">
+      <text>{{item.neirong}}</text>
+    </view>
+  </van-cell-group>
+  <van-cell-group title="发布者信息" inset>
+    <van-cell title="发布者" value="{{item.writer}}" />
+    <van-cell title="联系电话" value="{{item.call}}" />
+  </van-cell-group>
+
+</block>
+<block wx:else>
+  <van-cell-group title="商品信息" inset>
+    <van-cell title="商品名称" value="{{item.name}}" />
+    <van-cell title="价格（元）" value="{{item.price}}" />
+    <van-cell title="商品介绍" is-link bind:click="cell3" arrow-direction="{{direction3}}" />
+    <view id="cell3" class="cell" wx:if="{{isShow3}}">
+      <text>{{item.info}}</text>
+    </view>
+  </van-cell-group>
+  <van-cell-group title="卖家信息" inset>
+    <van-cell title="卖家姓名" value="{{item.pName}}" />
+    <van-cell title="卖家微信" value="{{item.pWechat}}" />
+    <van-cell title="卖家电话" value="{{item.pCall}}" />
+  </van-cell-group>
+  <van-cell-group title="商品图片" inset>
+    <block wx:key="index" wx:for="{{item.fileIDs}}">
+      <view style="margin:auto;width:671rpx;">
+        <image src="{{item}}" mode="aspectFill" data-img='{{item}}' bindtap="previewImg"></image>
+      </view>
+    </block>
+  </van-cell-group>
+</block>
