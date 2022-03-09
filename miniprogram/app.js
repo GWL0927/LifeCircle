@@ -6,7 +6,7 @@ App({
    */
   onLaunch: function () {
     wx.cloud.init({
-      env:'wx-db-5goyvtls7ada5c36',
+      env:'treehole-7ga3107a2dc00398',
       traceUser: true
     })
   },

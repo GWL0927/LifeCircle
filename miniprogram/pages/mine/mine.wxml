@@ -12,27 +12,6 @@
   </view>
 </view>
 <view class="bg">
-  <!-- <view class="liebiao">
-    <view class="box" bindtap="fabu">
-      <view class="left">
-        <image src="../../images/send.png"></image>
-        <view style="line-height:80rpx;">我的发布</view>
-      </view>
-      <image style="width:60rpx; height:60rpx;margin:10rpx 50rpx;" src="{{fabu?down:right}}"></image>
-    </view>
-    <block wx:if="{{fabu}}">
-      <view class="box1">表白墙
-        <text>发布{{biaobai}}</text>
-      </view>
-      <view class="box1">闲置物品
-        <text>发布{{xianzhi}}</text>
-      </view>
-      <view class="box1">失物招领
-        <text>发布失物{{lost}},拾物{{found}}</text>
-      </view>
-    </block>
-  </view> -->
-    
   <view class="van-cell-group__title">我的发布</view>
   <van-cell-group inset>
     <van-cell title="表白墙" value="发布{{biaobai}}" />
