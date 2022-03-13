@@ -1,13 +1,13 @@
 <view class="all">
   <swiper circular="true" indicator-dots="true" autoplay="true" interval="3000">
     <swiper-item>
-      <image src="../../images/p1.jpg"></image>
+      <image src="https://www.ynnu.edu.cn/__local/8/C4/B9/F415EA9B83B576F1FC894FEC095_C9708E41_C000.jpg?e=.jpg"></image>
     </swiper-item>
     <swiper-item>
-      <image src="../../images/p2.jpg"></image>
+      <image src="https://www.ynnu.edu.cn/images/21/03/12/30lbu823vc/3.jpg"></image>
     </swiper-item>
     <swiper-item>
-      <image src="../../images/p3.jpg"></image>
+      <image src="https://www.ynnu.edu.cn/__local/3/8C/5A/4B04E228B310DB4C25BB35B3B63_7CFF9D97_19DA1.jpg"></image>
     </swiper-item>
   </swiper>
   <view class="line">

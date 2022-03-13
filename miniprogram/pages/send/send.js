@@ -137,7 +137,6 @@ Page({
         promiseArr.push(new Promise((reslove, reject) => {
           let item = this.data.imgbox[i];
           let suffix = /\.\w+$/.exec(item)[0]; //正则表达式返回文件的扩展名
-          
           var that = this
           const fileContent = wx.getFileSystemManager().readFileSync(item, 'base64');
           wx.cloud.callFunction({

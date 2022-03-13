@@ -13,7 +13,46 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    if (JSON.stringify(options) != "{}") {
+      if (options.login == "true") {
+        db.collection('jianzhi').where({
+            _openid: options.openid
+          })
+          .orderBy('createTime', 'desc')
+          .watch({
+            onChange: res => {
+              console.log(res);
+              this.setData({
+                dataList: res.docs
+              })
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '你还未登录'
+        })
+      }
+    } else {
+      db.collection('jianzhi')
+        .orderBy('createTime', 'desc')
+        .watch({
+          onChange: res => {
+            console.log(res);
+            this.setData({
+              dataList: res.docs
+            })
+          },
+          onError: err => {
+            console.log(err);
+          }
+        })
+    }
+
     wx.getStorage({
       key: 'openid',
       success: res => {
@@ -22,22 +61,8 @@ Page({
         })
       },
     })
-    var that = this
-    db.collection('jianzhi')
-      .orderBy('createTime', 'desc')
-      .get({
-        success(res) {
-          console.log("请求成功", res)
-          that.setData({
-            dataList: res.data
-          })
-        },
-        fail(res) {
-          console.log("请求失败", res)
-        }
-      })
   },
-  go: function(event) {
+  go: function (event) {
     var info = event.currentTarget.dataset.id
     wx.setStorage({
       key: 'info',
@@ -208,7 +233,7 @@ Page({
       })
       return
     }
-    
+
     wx.showLoading({
       title: '发布中...',
     })
@@ -234,7 +259,6 @@ Page({
         this.setData({
           isSend: false
         })
-        this.onLoad()
         this.setData({
           gangwei: null,
           didian: null,
@@ -262,65 +286,64 @@ Page({
     var info = e.currentTarget.dataset.t
     wx.showLoading({
       title: '正在删除数据......',
-      mask:"true"
+      mask: "true"
     })
     db.collection('jianzhi').doc(info._id).remove()
-    .then(res => {
-      wx.showToast({
-        icon: 'success',
-        title: '删除成功',
+      .then(res => {
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功',
+        })
+        wx.hideLoading()
       })
-      wx.hideLoading()
-    })
-    this.onLoad()
 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

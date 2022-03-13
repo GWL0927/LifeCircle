@@ -7,61 +7,97 @@ Page({
     dataList1: []
   },
 
-  onLoad: function(e) {
+  onLoad: function (options) {
+    if (JSON.stringify(options) != "{}") {
+      if (options.login == "true") {
+        db.collection('lost').where({
+            _openid: options.openid
+          })
+          .orderBy('createTime', 'desc')
+          .watch({
+            onChange: res => {
+              console.log(res);
+              this.setData({
+                dataList: res.docs
+              })
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+        db.collection('found').where({
+            _openid: options.openid
+          })
+          .orderBy('createTime', 'desc')
+          .watch({
+            onChange: res => {
+              console.log(res);
+              this.setData({
+                dataList1: res.docs
+              })
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '你还未登录'
+        })
+      }
+    } else {
+      this.getLost()
+      this.getFound()
+    }
     var that = this
     wx.getStorage({
       key: 'openid',
-      success: function(res) {
+      success: function (res) {
         that.setData({
           openid: res.data
         })
       },
     })
-    this.getLost()
-    this.getFound()
+
   },
-  onShow: function() {
+  onShow: function () {
     this.setData({
       isSend: false
     })
-    this.onLoad()
   },
-  delete: function(e) {
+  delete: function (e) {
     var info = e.currentTarget.dataset.t
     wx.showLoading({
       title: '正在删除数据......',
-      mask:"true"
+      mask: "true"
     })
     db.collection('lost').doc(info._id).remove()
-    .then(res => {
-      console.log(res.data)
-      wx.showToast({
-        icon: 'success',
-        title: '删除成功',
+      .then(res => {
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功',
+        })
+        wx.hideLoading()
       })
-      wx.hideLoading()
-    })
-    this.onLoad()
   },
-  delete1: function(e) {
+  delete1: function (e) {
     var info = e.currentTarget.dataset.t
     wx.showLoading({
       title: '正在删除数据......',
-      mask:"true"
+      mask: "true"
     })
     db.collection('found').doc(info._id).remove()
-    .then(res => {
-      console.log(res.data)
-      wx.showToast({
-        icon: 'success',
-        title: '删除成功',
+      .then(res => {
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功',
+        })
+        wx.hideLoading()
       })
-      wx.hideLoading()
-    })
-    this.onLoad()
   },
   //联系方式
-  call: function(e) {
+  call: function (e) {
     var temp = e.currentTarget.dataset.call
     wx.setClipboardData({
       data: temp.pCall,
@@ -78,7 +114,7 @@ Page({
       }
     })
   },
-  wechat: function(e) {
+  wechat: function (e) {
     var temp = e.currentTarget.dataset.wechat
     wx.setClipboardData({
       data: temp.pWechat,
@@ -96,7 +132,7 @@ Page({
     })
   },
   // 预览图片
-  previewImg: function(e) {
+  previewImg: function (e) {
     let imgData = e.currentTarget.dataset.img;
     wx.previewImage({
       //当前显示图片
@@ -105,34 +141,42 @@ Page({
       urls: imgData[1]
     })
   },
-  getLost: function() {
-    var that = this
+  getLost: function () {
     db.collection('lost')
       .orderBy('createTime', 'desc') //按发布时间排序
-      .get()
-      .then(res => {
-        that.setData({
-          dataList: res.data
-        })
+      .watch({
+        onChange: res => {
+          console.log(res);
+          this.setData({
+            dataList: res.docs
+          })
+        },
+        onError: err => {
+          console.log(err);
+        }
       })
   },
-  getFound: function() {
-    var that = this
+  getFound: function () {
     db.collection('found')
       .orderBy('createTime', 'desc') //按发布时间排序
-      .get()
-      .then(res => {
-        that.setData({
-          dataList1: res.data
-        })
+      .watch({
+        onChange: res => {
+          console.log(res);
+          this.setData({
+            dataList1: res.docs
+          })
+        },
+        onError: err => {
+          console.log(err);
+        }
       })
   },
   //打开分类按钮
-  send: function() {
+  send: function () {
     var that = this
     wx.getStorage({
       key: 'login',
-      success: function(res) {
+      success: function (res) {
         if (res.data) {
           that.setData({
             isSend: true
@@ -153,31 +197,31 @@ Page({
     })
   },
   //退出分类按钮
-  back: function() {
+  back: function () {
     this.setData({
       isSend: false,
       isCall: false
     })
   },
   //跳转至发送页面
-  send_lost: function() {
+  send_lost: function () {
     wx.navigateTo({
       url: '../send/send?name=lostlost',
     })
   },
-  send_found: function() {
+  send_found: function () {
     wx.navigateTo({
       url: '../send/send?name=lostfound',
     })
   },
   // 滚动切换标签样式
-  switchTab: function(e) {
+  switchTab: function (e) {
     this.setData({
       page: e.detail.current
     });
   },
   // 点击标题切换当前页时改变样式
-  swichNav: function(e) {
+  swichNav: function (e) {
     var temp = e.target.dataset.page;
     if (this.data.page == temp) {} else {
       this.setData({

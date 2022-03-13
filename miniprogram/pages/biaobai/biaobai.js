@@ -14,22 +14,53 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (JSON.stringify(options) != "{}") {
+      if (options.login == "true") {
+        db.collection('biaobai').where({
+            _openid: options.openid
+          })
+          .orderBy('createTime', 'desc')
+          .watch({
+            onChange: res => {
+              console.log(res);
+              this.setData({
+                dataList: res.docs
+              })
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '你还未登录'
+        })
+      }
+    } else {
+      db.collection('biaobai')
+        .orderBy('createTime', 'desc')
+        .watch({
+          onChange: res => {
+            console.log(res);
+            this.setData({
+              dataList: res.docs
+            })
+          },
+          onError: err => {
+            console.log(err);
+          }
+        })
+    }
+
     wx.getStorage({
       key: 'openid',
       success: res => {
         this.setData({
           openid: res.data
         })
-      },
+      }
     })
-    db.collection('biaobai')
-      .orderBy('createTime', 'desc') //按发布时间排序
-      .get()
-      .then(res => {
-        this.setData({
-          dataList: res.data
-        })
-      })
   },
   //获取输入内容
   getInput1(event) {
@@ -128,7 +159,6 @@ Page({
         this.setData({
           isSend: false
         })
-        this.onLoad()
         this.setData({
           to: null,
           writer: null,
@@ -150,17 +180,16 @@ Page({
     var info = e.currentTarget.dataset.t
     wx.showLoading({
       title: '正在删除数据......',
-      mask:"true"
+      mask: "true"
     })
     db.collection('biaobai').doc(info._id).remove()
-    .then(res => {
-      wx.showToast({
-        icon: 'success',
-        title: '删除成功',
+      .then(res => {
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功',
+        })
+        wx.hideLoading()
       })
-      wx.hideLoading()
-    })
-    this.onLoad()
 
   },
   /**

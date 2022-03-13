@@ -11,42 +11,72 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var that = this
+  onLoad: function (options) {
+    if (JSON.stringify(options) != "{}") {
+      if (options.login == "true") {
+        db.collection('xianzhi').where({
+            _openid: options.openid
+          })
+          .orderBy('createTime', 'desc')
+          .watch({
+            onChange: res => {
+              console.log(res);
+              this.setData({
+                dataList: res.docs
+              })
+            },
+            onError: err => {
+              console.log(err);
+            }
+          })
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '你还未登录'
+        })
+      }
+    } else {
+      db.collection('xianzhi')
+        .orderBy('createTime', 'desc') //按发布商品排序
+        .watch({
+          onChange: res => {
+            console.log(res);
+            this.setData({
+              dataList: res.docs
+            })
+          },
+          onError: err => {
+            console.log(err);
+          }
+        })
+    }
+
     wx.getStorage({
       key: 'openid',
-      success: function(res) {
-        that.setData({
+      success: res => {
+        this.setData({
           openid: res.data
         })
-      },
+      }
     })
-    db.collection('xianzhi')
-      .orderBy('createTime', 'desc') //按发布商品排序
-      .get()
-      .then(res => {
-        this.setData({
-          dataList: res.data
-        })
-      })
+
   },
-  delete: function(e) {
+  delete: function (e) {
     var info = e.currentTarget.dataset.t
     wx.showLoading({
       title: '正在删除数据......',
-      mask:"true"
+      mask: "true"
     })
     db.collection('xianzhi').doc(info._id).remove()
-    .then(res => {
-      wx.showToast({
-        icon: 'success',
-        title: '删除成功',
+      .then(res => {
+        wx.showToast({
+          icon: 'success',
+          title: '删除成功',
+        })
+        wx.hideLoading()
       })
-      wx.hideLoading()
-      this.onLoad()
-    })
   },
-  send: function() {
+  send: function () {
     wx.getStorage({
       key: 'login',
       success: function (res) {
@@ -69,7 +99,7 @@ Page({
       }
     })
   },
-  go: function(event) {
+  go: function (event) {
     var info = event.currentTarget.dataset.id
     wx.setStorage({
       key: 'info',
@@ -82,49 +112,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    this.onLoad()
+  onShow: function () {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

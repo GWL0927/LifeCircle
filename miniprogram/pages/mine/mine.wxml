@@ -1,10 +1,10 @@
 <view class="info">
   <view class="touxiang" wx:if="{{login}}">
-    <open-data type="userAvatarUrl"></open-data>
+    <image class="touxiang" src="{{userInfo.avatarUrl}}"></image>
   </view>
    <image class="touxiang" src="../../images/unlogin.png" wx:else></image>
   <view class="name" wx:if="{{login}}">
-    <open-data type="userNickName"></open-data>
+    <text>{{userInfo.nickName}}</text>
   </view>
   <view wx:else>
     <button wx:if="{{!login}}" bindtap="getOpenid">登录</button>
@@ -14,9 +14,9 @@
 <view class="bg">
   <view class="van-cell-group__title">我的发布</view>
   <van-cell-group inset>
-    <van-cell title="表白墙" value="发布{{biaobai}}" />
-    <van-cell title="闲置物品" value="发布{{xianzhi}}" />
-    <van-cell title="兼职" value="发布{{jianzhi}}" />
-    <van-cell title="失物招领" value="发布失物{{lost}},拾物{{found}}" />
+    <van-cell title="表白墙" value="发布{{biaobai}}" is-link link-type="navigateTo" url="../biaobai/biaobai?openid={{openid}}&login={{login}}" />
+    <van-cell title="失物招领" value="发布失物{{lost}}，拾物{{found}}" is-link link-type="navigateTo" url="../lost/lost?openid={{openid}}&login={{login}}" />
+    <van-cell title="兼职" value="发布{{jianzhi}}" is-link link-type="navigateTo" url="../work/work?openid={{openid}}&login={{login}}" />
+    <van-cell title="闲置物品" value="发布{{xianzhi}}" is-link link-type="navigateTo" url="../xianzhi/xianzhi?openid={{openid}}&login={{login}}" />
   </van-cell-group>
 </view>

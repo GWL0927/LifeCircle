@@ -5,16 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    fabu: false,
     login: false,
-    right: "../../images/right.png",
-    down: "../../images/down.png",
     biaobai: 0,
     xianzhi: 0,
     jianzhi: 0,
     lost: 0,
-    found: 0
+    found: 0,
+    userInfo: {}
   },
 
   /**
@@ -29,14 +26,44 @@ Page({
         })
       }
     })
+    wx.getStorage({
+      key: 'userInfo',
+      success: res=> {
+        this.setData({
+          userInfo: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'openid',
+      success: res=> {
+        this.setData({
+          openid: res.data
+        })
+      }
+    })
   },
 
   getOpenid: function() {
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        let openid = res.result.openid;
+        this.setData({
+          openid: openid
+        })
+        wx.setStorage({
+          key: 'openid',
+          data: openid
+        })
+      }
+    })
     wx.getUserProfile({
       desc: '生活圈',
-      success: function(res) {
-        that.setData({
-          login: true
+      success: res => {
+        this.setData({
+          login: true,
+          userInfo: res.userInfo
         })
         wx.setStorage({
           key: 'login',
@@ -46,28 +73,12 @@ Page({
           key: 'userInfo',
           data: res.userInfo,
         })
-
-        that.getBiaobai()
-        that.getXianzhi()
-        that.getLost()
-        that.getJianzhi()
+        this.getBiaobai()
+        this.getXianzhi()
+        this.getLost()
+        this.getJianzhi()
       }
     })
-    let that = this;
-    wx.cloud.callFunction({
-      name: 'login',
-      complete: res => {
-        var openid = res.result.openid;
-        that.setData({
-          openid: openid
-        })
-        wx.setStorage({
-          key: 'openid',
-          data: that.data.openid
-        })
-      }
-    })
-
   },
 
   getBiaobai: function() {
