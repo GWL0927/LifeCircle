@@ -76,7 +76,7 @@
     </swiper-item>
   </swiper>
 </view>
-<image class="send" src="../../images/biaobai/send.png" bindtap="send"></image>
+<image wx:if="{{isShow}}" class="send" src="../../images/biaobai/send.png" bindtap="send"></image>
 <block wx:if="{{isSend}}">
   <view class="show_send"  bindtap="back">
     <view class="bg"></view>

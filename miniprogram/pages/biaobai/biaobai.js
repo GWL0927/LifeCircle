@@ -7,6 +7,7 @@ Page({
    */
   data: {
     isSend: false,
+    isShow: true,
     dataList: []
   },
 
@@ -15,6 +16,9 @@ Page({
    */
   onLoad: function (options) {
     if (JSON.stringify(options) != "{}") {
+      this.setData({
+        isShow: false
+      })
       if (options.login == "true") {
         db.collection('biaobai').where({
             _openid: options.openid
@@ -38,6 +42,9 @@ Page({
         })
       }
     } else {
+      this.setData({
+        isShow: true
+      })
       db.collection('biaobai')
         .orderBy('createTime', 'desc')
         .watch({

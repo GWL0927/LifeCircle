@@ -17,10 +17,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     wx.getStorage({
       key: 'login',
-      success: res=> {
+      success: res => {
         this.setData({
           login: res.data
         })
@@ -28,7 +28,7 @@ Page({
     })
     wx.getStorage({
       key: 'userInfo',
-      success: res=> {
+      success: res => {
         this.setData({
           userInfo: res.data
         })
@@ -36,7 +36,7 @@ Page({
     })
     wx.getStorage({
       key: 'openid',
-      success: res=> {
+      success: res => {
         this.setData({
           openid: res.data
         })
@@ -44,7 +44,7 @@ Page({
     })
   },
 
-  getOpenid: function() {
+  getOpenid: function () {
     wx.cloud.callFunction({
       name: 'login',
       complete: res => {
@@ -81,60 +81,74 @@ Page({
     })
   },
 
-  getBiaobai: function() {
-    var that = this
+  getBiaobai: function () {
     db.collection('biaobai').where({
-      _openid: this.data.openid
-    }).count({
-      success: function(res) {
-        that.setData({
-          biaobai: res.total
-        })
-      }
-    })
+        _openid: this.data.openid
+      })
+      .watch({
+        onChange: res => {
+          this.setData({
+            biaobai: res.docs.length
+          })
+        },
+        onError: err => {
+          console.log(err);
+        }
+      })
   },
-  getXianzhi: function() {
-    var that = this
+  getXianzhi: function () {
     db.collection('xianzhi').where({
-      _openid: this.data.openid
-    }).count({
-      success: function(res) {
-        that.setData({
-          xianzhi: res.total
-        })
-      }
-    })
+        _openid: this.data.openid
+      })
+      .watch({
+        onChange: res => {
+          this.setData({
+            xianzhi: res.docs.length
+          })
+        },
+        onError: err => {
+          console.log(err);
+        }
+      })
   },
-  getJianzhi: function() {
-    var that = this
+  getJianzhi: function () {
     db.collection('jianzhi').where({
-      _openid: this.data.openid
-    }).count({
-      success: function(res) {
-        that.setData({
-          jianzhi: res.total
-        })
-      }
-    })
+        _openid: this.data.openid
+      })
+      .watch({
+        onChange: res => {
+          this.setData({
+            jianzhi: res.docs.length
+          })
+        },
+        onError: err => {
+          console.log(err);
+        }
+      })
   },
-  getLost: function() {
-    var that = this
+  getLost: function () {
     db.collection('found').where({
       _openid: this.data.openid
-    }).count({
-      success: function(res) {
-        that.setData({
-          found: res.total
+    }).watch({
+      onChange: res => {
+        this.setData({
+          found: res.docs.length
         })
+      },
+      onError: err => {
+        console.log(err);
       }
     })
     db.collection('lost').where({
       _openid: this.data.openid
-    }).count({
-      success: function(res) {
-        that.setData({
-          lost: res.total
+    }).watch({
+      onChange: res => {
+        this.setData({
+          lost: res.docs.length
         })
+      },
+      onError: err => {
+        console.log(err);
       }
     })
   },
@@ -142,7 +156,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     if (this.data.login) {
       this.getBiaobai()
       this.getXianzhi()
@@ -154,42 +168,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

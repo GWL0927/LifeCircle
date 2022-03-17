@@ -143,7 +143,8 @@ Page({
             name: 'img',
             data: {
               fileContent: fileContent,
-              cloudPath: new Date().getTime() + suffix
+              cloudPath: new Date().getTime() + suffix,
+              suffix: suffix
             },
             success: function(res) {
               that.setData({

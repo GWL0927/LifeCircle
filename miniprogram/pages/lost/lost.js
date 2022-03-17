@@ -3,12 +3,16 @@ Page({
   data: {
     page: 0, //预设当前项的值
     isSend: false,
+    isShow: true,
     dataList: [],
     dataList1: []
   },
 
   onLoad: function (options) {
     if (JSON.stringify(options) != "{}") {
+      this.setData({
+        isShow: false
+      })
       if (options.login == "true") {
         db.collection('lost').where({
             _openid: options.openid
@@ -47,6 +51,9 @@ Page({
         })
       }
     } else {
+      this.setData({
+        isShow: true
+      })
       this.getLost()
       this.getFound()
     }
@@ -101,12 +108,15 @@ Page({
     var temp = e.currentTarget.dataset.call
     wx.setClipboardData({
       data: temp.pCall,
-      success(res) {
+      success() {
         wx.showToast({
           title: '电话已经复制',
         })
+        wx.makePhoneCall({
+          phoneNumber: temp.pCall
+        })
       },
-      fail(res) {
+      fail() {
         wx.showToast({
           icon: 'none',
           title: '该用户没有输入手机号码!',

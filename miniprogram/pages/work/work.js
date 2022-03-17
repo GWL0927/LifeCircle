@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isShow: true
   },
 
   /**
@@ -15,6 +15,9 @@ Page({
    */
   onLoad: function (options) {
     if (JSON.stringify(options) != "{}") {
+      this.setData({
+        isShow: false
+      })
       if (options.login == "true") {
         db.collection('jianzhi').where({
             _openid: options.openid
@@ -38,6 +41,9 @@ Page({
         })
       }
     } else {
+      this.setData({
+        isShow: true
+      })
       db.collection('jianzhi')
         .orderBy('createTime', 'desc')
         .watch({

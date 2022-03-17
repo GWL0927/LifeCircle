@@ -19,7 +19,7 @@
       </view>
     </view>
   </block>
-  <image class="send" src="../../images/biaobai/send.png" bindtap="send"></image>
+  <image wx:if="{{isShow}}" class="send" src="../../images/biaobai/send.png" bindtap="send"></image>
 </view>
 <block wx:if="{{isSend}}">
   <view>

@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgbox: []
+    imgbox: [],
+    isShow: true
   },
 
   /**
@@ -13,6 +14,9 @@ Page({
    */
   onLoad: function (options) {
     if (JSON.stringify(options) != "{}") {
+      this.setData({
+        isShow: false
+      })
       if (options.login == "true") {
         db.collection('xianzhi').where({
             _openid: options.openid
@@ -36,6 +40,9 @@ Page({
         })
       }
     } else {
+      this.setData({
+        isShow: true
+      })
       db.collection('xianzhi')
         .orderBy('createTime', 'desc') //按发布商品排序
         .watch({
