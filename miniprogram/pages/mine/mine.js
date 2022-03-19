@@ -45,19 +45,6 @@ Page({
   },
 
   getOpenid: function () {
-    wx.cloud.callFunction({
-      name: 'login',
-      complete: res => {
-        let openid = res.result.openid;
-        this.setData({
-          openid: openid
-        })
-        wx.setStorage({
-          key: 'openid',
-          data: openid
-        })
-      }
-    })
     wx.getUserProfile({
       desc: '生活圈',
       success: res => {
@@ -73,6 +60,26 @@ Page({
           key: 'userInfo',
           data: res.userInfo,
         })
+        this.getLogin(res.userInfo)
+      }
+    })
+  },
+
+  getLogin: function(userInfo) {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {
+        userInfo: userInfo
+      },
+      complete: val => {
+        let openid = val.result.openid;
+        this.setData({
+          openid: openid
+        })
+        wx.setStorage({
+          key: 'openid',
+          data: openid
+        })
         this.getBiaobai()
         this.getXianzhi()
         this.getLost()
@@ -82,6 +89,7 @@ Page({
   },
 
   getBiaobai: function () {
+    console.log(1, this.data.openid);
     db.collection('biaobai').where({
         _openid: this.data.openid
       })

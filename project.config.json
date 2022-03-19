@@ -2,7 +2,6 @@
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "ignoreDevUnusedFiles": false,
     "urlCheck": true,
     "es6": true,
     "enhance": true,
@@ -19,7 +18,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
@@ -43,11 +42,12 @@
     "minifyWXML": true,
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "ignoreDevUnusedFiles": false
   },
   "appid": "wx311e4026e2a2116a",
   "projectname": "%E6%A0%A1%E5%9B%AD%E7%94%9F%E6%B4%BB%E5%9C%88",
-  "libVersion": "2.22.1",
+  "libVersion": "2.23.0",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

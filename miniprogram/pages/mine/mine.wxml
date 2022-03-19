@@ -1,5 +1,5 @@
 <view class="info">
-  <view class="touxiang" wx:if="{{login}}">
+  <view wx:if="{{login}}">
     <image class="touxiang" src="{{userInfo.avatarUrl}}"></image>
   </view>
    <image class="touxiang" src="../../images/unlogin.png" wx:else></image>
