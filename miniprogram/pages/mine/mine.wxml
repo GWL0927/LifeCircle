@@ -20,3 +20,6 @@
     <van-cell title="闲置物品" value="发布{{xianzhi}}" is-link link-type="navigateTo" url="../xianzhi/xianzhi?openid={{openid}}&login={{login}}" />
   </van-cell-group>
 </view>
+<view wx:if="{{login}}" class="tc">
+  <button type="warn" bindtap="cancelLogin">退出登录</button>
+</view>

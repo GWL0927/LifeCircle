@@ -105,7 +105,7 @@ Page({
   },
   //联系方式
   call: function (e) {
-    var temp = e.currentTarget.dataset.call
+    let temp = e.currentTarget.dataset.call
     wx.setClipboardData({
       data: temp.pCall,
       success() {
@@ -125,7 +125,7 @@ Page({
     })
   },
   wechat: function (e) {
-    var temp = e.currentTarget.dataset.wechat
+    let temp = e.currentTarget.dataset.wechat
     wx.setClipboardData({
       data: temp.pWechat,
       success(res) {
@@ -139,6 +139,19 @@ Page({
           title: '该用户没有输入微信号',
         })
       }
+    })
+  },
+  mychat(e) {
+    let temp = e.currentTarget.dataset.mychat
+    if (temp._openid == this.data.openid) {
+      wx.showToast({
+        title: '不能私信自己！',
+        icon: 'none'
+      })
+      return false;
+    }
+    wx.navigateTo({
+      url: `../chat/chat?openid=${temp._openid}&userName=${temp.userName}`
     })
   },
   // 预览图片

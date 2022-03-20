@@ -40,6 +40,11 @@ Page({
       url: '../xianzhi/xianzhi',
     })
   },
+  groupchat: function() {
+    wx.navigateTo({
+      url: '../chat/chat',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

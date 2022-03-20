@@ -32,6 +32,9 @@ page {
   /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); */
 }
 
+.tc {
+  margin: 50rpx 32rpx;
+}
 
 .van-cell-group__title {
   margin: 0;
@@ -41,44 +44,3 @@ page {
   font-size: 28rpx;
   line-height: 32rpx;
 }
-
-/* .liebiao {
-  background-color: white;
-}
-
-.box {
-  display: flex;
-  flex-direction: row;
-  height: 80rpx;
-  padding: 10rpx;
-  border-bottom: 5rpx solid #e6e3e3;
-  justify-content: space-between;
-}
-
-.box1 {
-  background-color: #e0f5ff;
-  display: flex;
-  flex-direction: row;
-  text-indent: 60rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  padding: 10rpx;
-  justify-content: space-between;
-}
-
-.box1 text {
-  margin: 0 60rpx;
-  font-size: 25rpx;
-}
-
-.left {
-  display: flex;
-  flex-direction: row;
-}
-
-image {
-  width: 80rpx;
-  height: 80rpx;
-  margin: 0 10rpx 0 50rpx;
-} */
-

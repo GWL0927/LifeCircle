@@ -88,6 +88,30 @@ Page({
     })
   },
 
+  cancelLogin() {
+    wx.showModal({
+      title: '提示',
+      content: '确定要退出登录吗？',
+      success: res => {
+        if (res.confirm) {
+          this.setData({
+            login: false,
+            biaobai: 0,
+            xianzhi: 0,
+            jianzhi: 0,
+            lost: 0,
+            found: 0,
+            userInfo: {}
+          })
+          wx.clearStorage()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  },
+
   getBiaobai: function () {
     console.log(1, this.data.openid);
     db.collection('biaobai').where({

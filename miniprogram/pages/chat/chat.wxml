@@ -1,0 +1,28 @@
+<!--pages/chat/chat.wxml-->
+<view>
+  <scroll-view
+    class="chat-content" 
+    scroll-y 
+    scroll-with-animation
+    scroll-top="{{ scrollTop }}"
+    scroll-into-view="{{ lastId }}"
+  >
+    <block wx:for="{{ msg }}" wx:key="index">
+      <bubble id="{{item.id}}" obj="{{item}}"></bubble>
+    </block>
+  </scroll-view>
+  <view class="input">
+    <input
+      value="{{ inputVal }}"
+      cursor-spacing="7" 
+      adjust-position="{{ true }}" 
+      confirm-type="send"
+      confirm-hold="{{ true }}"
+      bindinput="inputChange"
+      bindconfirm="inputSend"
+      bindfocus="onFocus" />
+    <button 
+      type="primary" 
+      bindtap="inputSend">发送</button>
+  </view>
+</view>

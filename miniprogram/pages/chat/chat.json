@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "聊天室",
+  "usingComponents": {
+    "bubble":"../../components/bubble/bubble"
+  }
+}

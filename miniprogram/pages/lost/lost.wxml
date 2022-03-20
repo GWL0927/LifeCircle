@@ -16,6 +16,7 @@
               <view class="top">
                 <image class="call" src="../../images/call.png" bindtap="call" data-call="{{item}}"></image>
                 <image class="call" src="../../images/wechat.png" bindtap="wechat" data-wechat="{{item}}"></image>
+                <text bindtap="mychat" data-mychat="{{item}}">私信</text>
               </view>
             </view>
             <view class="line"></view>

@@ -1,0 +1,23 @@
+<!--components/bubble /bubble.wxml-->
+  <view id="{{ obj.id }}" class="container-right" wx:if="{{ obj.openid == openid }}">
+    <view class="content-right">
+      <text>{{ obj.message }}</text>
+    </view> 
+    <view class="icon-right">
+      <view class="photo">
+        <image src="{{ obj.userInfo.avatarUrl }}" style="width:36px;height:36px;"></image>
+      </view>
+      <view class="caret-right"></view>
+    </view>
+  </view>
+  <view wx:else id="{{ obj.id }}" class="bubble-container">
+    <view class="icon">
+      <view class="caret-left"></view>
+      <view class="photo">
+        <image src="{{ obj.userInfo.avatarUrl }}" style="width:36px;height:36px;"></image>
+      </view>
+    </view>
+    <view class="content">
+      <text>{{ obj.message }}</text>
+    </view>
+  </view>
