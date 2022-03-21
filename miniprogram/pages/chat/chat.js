@@ -40,15 +40,16 @@ Page({
       })
       return false;
     }
-
     wx.cloud.callFunction({
       name: 'chatmsg',
       data: {
         roomId: this.data.roomId,
         msgType: 'text',
         message: this.data.inputVal,
+        lastTime: this.data.msg[this.data.msg.length - 1]._createTime
       },
       success: res => {
+        console.log(res);
         this.setData({
           inputVal: ''
         })
@@ -68,9 +69,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
-
-    if (JSON.stringify(options) != "{}") {
+    if (options && JSON.stringify(options) != "{}") {
+      console.log(options);
       // 私聊
       wx.setNavigationBarTitle({
         title: options.userName

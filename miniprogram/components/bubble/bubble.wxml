@@ -12,12 +12,17 @@
   </view>
   <view wx:else id="{{ obj.id }}" class="bubble-container">
     <view class="icon">
-      <view class="caret-left"></view>
+      <view wx:if="{{ obj.roomId == 1 }}" class="caret-left translate5Y"></view>
+      <view wx:else class="caret-left"></view>
       <view class="photo">
         <image src="{{ obj.userInfo.avatarUrl }}" style="width:36px;height:36px;"></image>
       </view>
     </view>
-    <view class="content">
+    <text class="nickname" wx:if="{{ obj.roomId == 1 }}">{{obj.userInfo.nickName}}</text>
+    <view wx:if="{{ obj.roomId == 1 }}" class="content translate10Y">
+      <text>{{ obj.message }}</text>
+    </view>
+    <view wx:else class="content">
       <text>{{ obj.message }}</text>
     </view>
   </view>

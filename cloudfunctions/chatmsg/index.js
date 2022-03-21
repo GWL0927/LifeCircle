@@ -18,6 +18,13 @@ exports.main = async (event, context) => {
   // 获取会话房间号
   let roomId = event.roomId || 1
   let MSG = roomId == 1 ? 'msgs' : 'private-msgs'
+  // 获取当前时间戳
+  let timestamp = new Date().getTime()
+  // 获取最后一条消息的时间戳
+  let lastTime = new Date(event.lastTime).getTime()
+  let timeDiff = timestamp - lastTime
+  //                       计算天数后剩余的毫秒数，计算小时数后剩余的毫秒数  
+  let minutes=Math.floor(timeDiff % (24*3600*1000) % (3600*1000) /(60*1000))  
   switch (msgType) {
     case 'text': {
       let message = event.message;
@@ -29,7 +36,8 @@ exports.main = async (event, context) => {
           roomId,
           message,
           userInfo,
-          _createTime: util.formatTime(new Date())
+          _createTime: util.formatTime(new Date()),
+          minutes
         }
       })
     }
