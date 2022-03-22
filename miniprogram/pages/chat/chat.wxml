@@ -8,7 +8,7 @@
     scroll-into-view="{{ lastId }}"
   >
     <block wx:for="{{ msg }}" wx:key="index">
-      <view wx:if="{{ item.minutes > 1 }}" class="msgtime">{{ item._createTime }}</view>
+      <view wx:if="{{ item.allminutes > 1 }}" class="msgtime">{{ item._createTime }}</view>
       <bubble id="{{item.id}}" obj="{{item}}"></bubble>
     </block>
   </scroll-view>

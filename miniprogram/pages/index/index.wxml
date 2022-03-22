@@ -31,13 +31,9 @@
     </view>
   </view>
   <view class="line">
-    <view class="box" bindtap="work">
-      <image src="../../images/work.png"></image>
-      <view>推荐</view>
-    </view>
-    <view class="box" bindtap="groupchat">
+    <view class="box" style="width: 95vw;" bindtap="groupchat">
       <image src="../../images/groupchat.png"></image>
-      <view>畅谈天地</view>
+      <view>畅谈天地 进来向大家分享一下吧！</view>
     </view>
   </view>
 </view>

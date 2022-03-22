@@ -8,7 +8,8 @@
     "pages/lost/lost",
     "pages/xianzhi/xianzhi",
     "pages/send/send",
-    "pages/chat/chat"
+    "pages/chat/chat",
+    "pages/chatList/chatList"
   ],
   "tabBar": {
     "color": "#cdcdcd",
@@ -22,7 +23,12 @@
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home1.png"
       },
-
+      {
+        "pagePath": "pages/chatList/chatList",
+        "text": "聊天",
+        "iconPath": "images/privateChat.png",
+        "selectedIconPath": "images/privateChat1.png"
+      },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
@@ -43,7 +49,8 @@
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-collapse": "@vant/weapp/collapse/index",
-    "van-collapse-item": "@vant/weapp/collapse-item/index"
+    "van-collapse-item": "@vant/weapp/collapse-item/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index"
   },
   "lazyCodeLoading": "requiredComponents"
 }

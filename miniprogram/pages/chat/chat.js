@@ -43,10 +43,11 @@ Page({
     wx.cloud.callFunction({
       name: 'chatmsg',
       data: {
+        toOpenid: this.data.toOpenid,
         roomId: this.data.roomId,
         msgType: 'text',
         message: this.data.inputVal,
-        lastTime: this.data.msg[this.data.msg.length - 1]._createTime
+        lastTime: this.data.msg.length > 0 ? this.data.msg[this.data.msg.length - 1]._createTime : 0
       },
       success: res => {
         console.log(res);
@@ -70,7 +71,6 @@ Page({
    */
   onLoad: function (options) {
     if (options && JSON.stringify(options) != "{}") {
-      console.log(options);
       // 私聊
       wx.setNavigationBarTitle({
         title: options.userName
@@ -79,7 +79,8 @@ Page({
         key: 'openid',
         success: res => {
           this.setData({
-            roomId: options.openid + '-' + res.data
+            roomId: options.openid + '-' + res.data,
+            toOpenid: options.openid
           })
           db.collection("private-msgs").where(
             _.or([

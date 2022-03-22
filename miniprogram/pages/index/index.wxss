@@ -34,7 +34,6 @@ swiper-item{
   height: 20vw;
   justify-content: left;
   font-size: 35rpx;
-  /* box-shadow: 7rpx 7rpx 10rpx rgba(0, 0, 0, 0.2); */
 }
 .box:active{
   display: flex;
@@ -46,7 +45,6 @@ swiper-item{
   height: 20vw;
   justify-content: left;
   font-size: 35rpx;
-  box-shadow: 4rpx 4rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 .box image{
   width: 15vw;

@@ -1,0 +1,102 @@
+/* pages/chatList/chatList.wxss */
+page {
+  touch-action: none;
+}
+
+.msgList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.borderbottom {
+  border-bottom: 1rpx solid #E5E5E5;
+  width: calc(100% - 150rpx);
+  float: right;
+}
+
+.list {
+  height: calc(139rpx - 24rpx);
+  width: calc(100% - 60rpx);
+  display: flex;
+  padding: 24rpx 30rpx 0 30rpx;
+  position: relative;
+}
+
+.list .infor_img {
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 30rpx;
+  border-radius: 16rpx;
+}
+
+.list .content {
+  width: calc(100% - 120rpx);
+  height: 100%;
+}
+
+.content .con_top {
+  height: 40rpx;
+  width: 100%;
+  display: flex;
+}
+
+.con_top .con_right {
+  width: calc(100% - 120rpx);
+  display: flex;
+}
+
+.con_top .infor_name {
+  color: #333333;
+  font-size: 32rpx;
+}
+
+.con_top .infor_time {
+  color: #aaaaaa;
+  font-size: 22rpx;
+  width: 120rpx;
+  text-align: right;
+}
+
+.content .con_bottom {
+  margin-top: 15rpx;
+  height: calc(100% - 55rpx);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.con_bottom .infor_near {
+  width: calc(100% - 50px);
+  color: #999999;
+  font-size: 26rpx;
+  overflow: hidden;
+  height: 38rpx;
+}
+
+.con_bottom .infor_num {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30rpx;
+  background: #FF4444;
+  color: #ffffff;
+  font-size: 22rpx;
+}
+
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 130rpx;
+  height: 139rpx;
+  font-size: 34rpx;
+  line-height: 139rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #f44;
+}
+
+.van-swipe-cell:active {
+  background-color: #E5E5E5;
+}

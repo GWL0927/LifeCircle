@@ -1,0 +1,27 @@
+<!--pages/chatList/chatList.wxml-->
+
+<view style="background:#f7f8fa;height:100%;">
+  <view class="msgList">
+    <view wx:for="{{msgList}}" wx:key="index">
+      <van-swipe-cell wx:if="{{item.isShow}}" right-width="{{ 65 }}" bind:click="delete" data-item="{{item}}">
+        <view class="list" data-item="{{item}}" bindtap="infoTap">
+          <image src="{{item.avatarUrl}}" class="infor_img"></image>
+          <view class="content">
+            <view class="con_top">
+              <view class="con_right">
+                <view class="infor_name">{{item.nickName}}</view>
+              </view>
+              <view class="infor_time">{{item._createTime}}</view>
+            </view>
+            <view class="con_bottom">
+              <view class="infor_near">{{item.nearInformation}}</view>
+              <view class="infor_num">{{item.inforNum}}</view>
+            </view>
+          </view>
+        </view>
+        <view slot="right">删除</view>
+      </van-swipe-cell>
+      <view wx:if="{{item.isShow}}" class="borderbottom"></view>
+    </view>
+  </view>
+</view>
