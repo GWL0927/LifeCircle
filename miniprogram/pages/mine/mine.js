@@ -101,7 +101,8 @@ Page({
             jianzhi: 0,
             lost: 0,
             found: 0,
-            userInfo: {}
+            userInfo: {},
+            openid: ''
           })
           wx.clearStorage()
         } else if (res.cancel) {
@@ -113,7 +114,6 @@ Page({
   },
 
   getBiaobai: function () {
-    console.log(1, this.data.openid);
     db.collection('biaobai').where({
         _openid: this.data.openid
       })

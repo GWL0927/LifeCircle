@@ -15,7 +15,7 @@
     "color": "#cdcdcd",
     "selectedColor": "#000",
     "borderStyle": "black",
-    "backgroundColor": "#f7f8fa",
+    "backgroundColor": "#f2f1f6",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -38,7 +38,7 @@
     ]
   },
   "window": {
-    "navigationBarBackgroundColor": "#f7f8fa",
+    "navigationBarBackgroundColor": "#f2f1f6",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

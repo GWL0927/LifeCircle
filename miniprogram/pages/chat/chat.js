@@ -10,7 +10,8 @@ Page({
     scrollTop: 0,
     lastId: '',
     roomId: 1,
-    msg: []
+    msg: [],
+    inputBottom: 0
   },
   clone(target) {
     return JSON.parse(JSON.stringify(target))
@@ -42,8 +43,8 @@ Page({
     }
     wx.cloud.callFunction({
       name: 'chatmsg',
-      data: {
-        toOpenid: this.data.toOpenid,
+      data: {        
+        toOpenid: this.data.toOpenid || this.data.openid,
         roomId: this.data.roomId,
         msgType: 'text',
         message: this.data.inputVal,
@@ -95,12 +96,10 @@ Page({
           .orderBy('_createTime', 'asc')
           .watch({
             onChange: res => {
-              if (res.docs.length != 0) {
-                this.setData({
-                  msg: [...res.docs],
-                  lastId: res.docs[res.docs.length - 1].id || 0
-                })
-              }
+              this.setData({
+                msg: [...res.docs],
+                lastId: res.docs.length > 0 ? res.docs[res.docs.length - 1].id : 'msg0'
+              })
             },
             onError: err => {
               console.error('the watch closed because of error', err)
@@ -124,7 +123,7 @@ Page({
         onChange: res => {
           this.setData({
             msg: [...res.docs],
-            lastId: res.docs[res.docs.length - 1].id
+            lastId: res.docs.length > 0 ? res.docs[res.docs.length - 1].id : 'msg0'
           })
         },
         onError: err => {
@@ -132,7 +131,12 @@ Page({
         }
       })
     }
-
+    wx.onKeyboardHeightChange(res => {
+      console.log(res.height)
+      this.setData({
+        inputBottom: res.height
+      })
+    })
   },
 
   /**

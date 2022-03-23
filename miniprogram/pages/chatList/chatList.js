@@ -7,23 +7,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: '',
-    msgList: [
-      // {
-      //   avatarUrl: '../../images/123.jpg',
-      //   nickName: '齐磊',
-      //   difftime: '11小时前',
-      //   nearInformation: '这是一条最近的消息',
-      //   inforNum: 3
-      // }
-    ]
+    msgList: []
+  },
+  async init() {
+    let openid = wx.getStorageSync('openid')
+    this.setData({
+      openid
+    })
+    if (openid) {
+      this.getMsgList()
+    } else {
+      this.setData({
+        msgList: []
+      })
+    }
   },
   infoTap(e) {
-    let temp = e.currentTarget.dataset.item
-    console.log(temp);
-    let _openid = this.data.openid == temp.openid ? temp.toOpenid : temp.openid
+    let {item, index} = e.currentTarget.dataset
+    // 点击的消息记录的openid=自己的openid，则跳转到toOpenid
+    let _openid = this.data.openid == item.openid ? item.toOpenid : item.openid
+    this.data.msgList[index].isRed = false
+    this.setData({
+      msgList: this.data.msgList
+    })
+    wx.setStorageSync('msgList', [...this.data.msgList])
     wx.navigateTo({
-      url: `../chat/chat?openid=${_openid}&userName=${temp.nickName}`
+      url: `../chat/chat?openid=${_openid}&userName=${item.nickName}`
     })
   },
   delete(e) {
@@ -53,72 +62,90 @@ Page({
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let openid = wx.getStorageSync('openid')
-    this.setData({
-      openid
-    })
+  getMsgList() {
     db.collection("msg-list")
       .orderBy('_createTime', 'desc')
       .watch({
         onChange: res => {
-          console.log(res);
-          let msgList = []
-          res.docs.forEach((item) => {
-            let arr = [item.openid, item.toOpenid] // 存放发送人id和被发送人id
-            if (arr.includes(openid)) { // 存在自己的id才进行展示
-              if (item.openid == openid) {
-                // 自己发的，使用toUserInfo的信息展示
-                let obj = {
-                  ...item,
-                  ...item.toUserInfo,
-                  isShow: true
-                }
-                msgList.push(obj)
-              } else {
-                // 对方发的，使用userInfo的信息展示
-                let obj = {
-                  ...item,
-                  ...item.userInfo,
-                  isShow: true
-                }
-                msgList.push(obj)
-              }
-            }
-          })
-          
-          let msgListRes1 = wx.getStorageSync('msgList') // 先获取缓存的列表
-          if (msgListRes1.length > 0) {
-            msgListRes1.forEach((item1) => {
-              msgList.forEach((item, index) => {
-                if (item1.roomId == item.roomId) { // 同一个聊天室
-                  if (item.timestamp == item1.timestamp) { 
-                    // 消息的时间戳相同则表示没有新的消息，则isShow保持缓存的值
-                    msgList[index].isShow = item1.isShow
-                  } else {
-                    // 更新了，则展示
-                    msgList[index].isShow = true
-                  }
-                }
-              })
-            })
-          }
-          // 将消息列表写入到缓存
-          wx.setStorageSync('msgList', [...msgList])
-          // 获取缓存中消息列表，并赋值给data中的msgList
-          let msgListRes = wx.getStorageSync('msgList')
-          this.setData({
-            msgList: [...msgListRes]
-          })
+          this.decode(res)
         },
         onError: err => {
-          console.error('the watch closed because of error', err)
+          console.log(err)
         }
       })
-
+  },
+  decode(res) {
+    let msgList = []
+    res.docs.forEach((item) => {
+      let arr = [item.openid, item.toOpenid] // 存放发送人id和被发送人id
+      if (arr.includes(this.data.openid)) { // 存在自己的id才进行展示
+        if (item.openid == this.data.openid) {
+          // 自己发的，使用toUserInfo的信息展示
+          let obj = {
+            ...item,
+            ...item.toUserInfo,
+            isShow: true
+          }
+          msgList.push(obj)
+        } else {
+          // 对方发的，使用userInfo的信息展示
+          let obj = {
+            ...item,
+            ...item.userInfo,
+            isShow: true,
+            isRed: true
+          }
+          msgList.push(obj)
+        }
+      }
+    })
+    let msgListRes1 = wx.getStorageSync('msgList') // 先获取缓存的列表
+    // 控制删除后是否展示
+    if (msgListRes1.length > 0) {
+      msgListRes1.forEach((item1) => {
+        msgList.forEach((item, index) => {
+          if (item1.roomId == item.roomId) { // 同一个聊天室
+            if (item.timestamp == item1.timestamp) {
+              // 消息的时间戳相同则表示这个用户没有发新的消息来，则isShow保持缓存的值
+              msgList[index].isShow = item1.isShow
+              msgList[index].isRed = item1.isRed
+              // 在tabbar上显示红点
+            } else {
+              // 更新了，则展示
+              msgList[index].isShow = true
+            }
+          }
+        })
+      })
+    }
+    console.log(msgList);
+    // 将消息列表写入到缓存
+    wx.setStorageSync('msgList', [...msgList])
+    // 获取缓存中消息列表，并赋值给data中的msgList
+    let msgListRes = wx.getStorageSync('msgList')
+    this.setData({
+      msgList: [...msgListRes]
+    })
+    // 只要有一条消息未读，则在tabbar上显示
+    let isBarRed = msgListRes.some((item) => {
+      return item.isRed == true
+    })
+    if (isBarRed) {
+      wx.showTabBarRedDot({
+        index: 1
+      });
+    } else {
+      wx.hideTabBarRedDot({
+        index: 1
+      });
+    }
+    console.log("isBarRed",isBarRed);
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function () {
+    this.init()
   },
 
   /**
@@ -132,6 +159,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.init()
 
   },
 

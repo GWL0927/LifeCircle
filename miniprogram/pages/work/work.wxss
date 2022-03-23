@@ -80,7 +80,7 @@
 .send_box {
   width: 70vw;
   height: 90vh;
-  background-color: #f7f8fa;
+  background-color: #f2f1f6;
   border-radius: 20rpx;
   margin: auto;
   position: fixed;
@@ -95,7 +95,7 @@
 
 .top {
   height: 100rpx;
-  background-color: #f7f8fa;
+  background-color: #f2f1f6;
   font-weight: bolder;
   font-size: 40rpx;
   text-align: center;

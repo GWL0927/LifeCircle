@@ -12,7 +12,7 @@
       <bubble id="{{item.id}}" obj="{{item}}"></bubble>
     </block>
   </scroll-view>
-  <view class="input">
+  <view class="input" style="bottom:{{ inputBottom }}px;">
     <input
       value="{{ inputVal }}"
       cursor-spacing="7" 
@@ -21,7 +21,9 @@
       confirm-hold="{{ true }}"
       bindinput="inputChange"
       bindconfirm="inputSend"
-      bindfocus="onFocus" />
+      bindfocus="onFocus"
+      adjust-position="{{ false }}" 
+      />
     <button 
       type="primary" 
       bindtap="inputSend">发送</button>

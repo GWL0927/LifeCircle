@@ -11,7 +11,7 @@
 .input {
   position: absolute;
   bottom: 0;
-  background-color: #f7f8fa;
+  background-color: #f2f1f6;
   height: 8vh;
   display: flex;
   justify-content: center;
@@ -20,6 +20,7 @@
   box-shadow: 0px 0px 1px #888888;
 }
 .input input {
+  border-radius: 16rpx;
   width: 78vw;
   height: 6vh;
   background-color: #ffffff;

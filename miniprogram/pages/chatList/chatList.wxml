@@ -4,7 +4,7 @@
   <view class="msgList">
     <view wx:for="{{msgList}}" wx:key="index">
       <van-swipe-cell wx:if="{{item.isShow}}" right-width="{{ 65 }}" bind:click="delete" data-item="{{item}}">
-        <view class="list" data-item="{{item}}" bindtap="infoTap">
+        <view class="list" data-item="{{item}}" data-index="{{index}}" bindtap="infoTap">
           <image src="{{item.avatarUrl}}" class="infor_img"></image>
           <view class="content">
             <view class="con_top">
@@ -15,7 +15,7 @@
             </view>
             <view class="con_bottom">
               <view class="infor_near">{{item.nearInformation}}</view>
-              <view class="infor_num">{{item.inforNum}}</view>
+              <view wx:if="{{item.isRed}}" class="infor_num">{{item.inforNum}}</view>
             </view>
           </view>
         </view>

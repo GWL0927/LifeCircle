@@ -2,7 +2,7 @@
   width: 100vw;
   display: flex;
   flex-direction: row;
-  background-color: #f7f8fa;
+  background-color: #f2f1f6;
   height: 6vh;
   font-size: 3vh;
   font-weight: bolder;

@@ -42,7 +42,7 @@ page {
 }
 
 .con_top .con_right {
-  width: calc(100% - 120rpx);
+  width: calc(100% - 140rpx);
   display: flex;
 }
 
@@ -54,7 +54,7 @@ page {
 .con_top .infor_time {
   color: #aaaaaa;
   font-size: 22rpx;
-  width: 120rpx;
+  width: 140rpx;
   text-align: right;
 }
 
