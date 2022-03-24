@@ -1,5 +1,5 @@
 <!--pages/chat/chat.wxml-->
-<view>
+<view class="main" style="height:{{ scrollHeight || cardHeight }}px;">
   <scroll-view
     class="chat-content" 
     scroll-y 
@@ -12,20 +12,19 @@
       <bubble id="{{item.id}}" obj="{{item}}"></bubble>
     </block>
   </scroll-view>
-  <view class="input" style="bottom:{{ inputBottom }}px;">
+  <view class="input" style="bottom: {{ inputBottom }}px" animation="{{animation}}">
     <input
       value="{{ inputVal }}"
       cursor-spacing="7" 
-      adjust-position="{{ true }}" 
+      adjust-position="{{ false }}" 
       confirm-type="send"
       confirm-hold="{{ true }}"
       bindinput="inputChange"
       bindconfirm="inputSend"
       bindfocus="onFocus"
-      adjust-position="{{ false }}" 
       />
-    <button 
+    <!-- <button 
       type="primary" 
-      bindtap="inputSend">发送</button>
+      bindtap="inputSend">发送</button> -->
   </view>
 </view>

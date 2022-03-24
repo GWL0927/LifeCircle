@@ -23,7 +23,10 @@ Page({
     }
   },
   infoTap(e) {
-    let {item, index} = e.currentTarget.dataset
+    let {
+      item,
+      index
+    } = e.currentTarget.dataset
     // 点击的消息记录的openid=自己的openid，则跳转到toOpenid
     let _openid = this.data.openid == item.openid ? item.toOpenid : item.openid
     this.data.msgList[index].isRed = false
@@ -39,15 +42,6 @@ Page({
     console.log(e);
     if (e.detail == "right") {
       let roomId = e.target.dataset.item.roomId
-      // wx.cloud.callFunction({
-      //   name: 'delmsglist',
-      //   data: {
-      //     roomId
-      //   },
-      //   success: res => {
-      //     console.log(res);
-      //   }
-      // })
       this.data.msgList.forEach((item, index) => {
         if (item.roomId == roomId) {
           this.data.msgList[index].isShow = false
@@ -109,7 +103,6 @@ Page({
               // 消息的时间戳相同则表示这个用户没有发新的消息来，则isShow保持缓存的值
               msgList[index].isShow = item1.isShow
               msgList[index].isRed = item1.isRed
-              // 在tabbar上显示红点
             } else {
               // 更新了，则展示
               msgList[index].isShow = true
@@ -126,26 +119,12 @@ Page({
     this.setData({
       msgList: [...msgListRes]
     })
-    // 只要有一条消息未读，则在tabbar上显示
-    let isBarRed = msgListRes.some((item) => {
-      return item.isRed == true
-    })
-    if (isBarRed) {
-      wx.showTabBarRedDot({
-        index: 1
-      });
-    } else {
-      wx.hideTabBarRedDot({
-        index: 1
-      });
-    }
-    console.log("isBarRed",isBarRed);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.init()
+    // this.init()
   },
 
   /**
@@ -160,7 +139,23 @@ Page({
    */
   onShow: function () {
     this.init()
-
+    // 只要有一条消息未读，则在tabbar上显示
+    // let isBarRed = this.data.msgList.some((item) => {
+    //   return item.isRed == true
+    // })
+    // this.setData({
+    //   isBarRed
+    // })
+    // if (isBarRed) {
+    //   wx.showTabBarRedDot({
+    //     index: 1
+    //   });
+    // } else {
+    //   wx.hideTabBarRedDot({
+    //     index: 1
+    //   });
+    // }
+    // console.log("isBarRed", isBarRed);
   },
 
   /**

@@ -62,6 +62,20 @@ Component({
    */
   methods: {
     onReady: function() {
-    }
+    },
+    mychat(e) {
+      let temp = e.currentTarget.dataset.mychat
+      console.log(e);
+      if (temp._openid == this.data.openid) {
+        wx.showToast({
+          title: '不能私信自己！',
+          icon: 'none'
+        })
+        return false;
+      }
+      wx.navigateTo({
+        url: `../chat/chat?openid=${temp.openid}&userName=${temp.userInfo.nickName}`
+      })
+    },
   }
 })

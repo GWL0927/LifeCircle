@@ -14,7 +14,7 @@
     <view class="icon">
       <view wx:if="{{ obj.roomId == 1 }}" class="caret-left translate5Y"></view>
       <view wx:else class="caret-left"></view>
-      <view class="photo">
+      <view class="photo" bindtap="mychat" data-mychat="{{obj}}">
         <image src="{{ obj.userInfo.avatarUrl }}" style="width:36px;height:36px;"></image>
       </view>
     </view>

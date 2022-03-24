@@ -68,6 +68,21 @@ Page({
     })
 
   },
+  mychat(e) {
+    let temp = e.currentTarget.dataset.mychat
+    console.log(temp);
+
+    if (temp._openid == this.data.openid) {
+      wx.showToast({
+        title: '不能私信自己！',
+        icon: 'none'
+      })
+      return false;
+    }
+    wx.navigateTo({
+      url: `../chat/chat?openid=${temp._openid}&userName=${temp.userName}`
+    })
+  },
   delete: function (e) {
     var info = e.currentTarget.dataset.t
     wx.showLoading({

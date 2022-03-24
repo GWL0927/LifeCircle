@@ -58,7 +58,14 @@ Page({
           }
         })
     }
-
+    wx.getStorage({
+      key: 'userInfo',
+      success: res => {
+        this.setData({
+          userInfo: res.data
+        })
+      },
+    })
     wx.getStorage({
       key: 'openid',
       success: res => {
@@ -76,6 +83,20 @@ Page({
     })
     wx.navigateTo({
       url: '../temp/temp?name=work',
+    })
+  },
+  mychat(e) {
+    let temp = e.currentTarget.dataset.mychat
+    console.log(temp);
+    if (temp._openid == this.data.openid) {
+      wx.showToast({
+        title: '不能私信自己！',
+        icon: 'none'
+      })
+      return false;
+    }
+    wx.navigateTo({
+      url: `../chat/chat?openid=${temp._openid}&userName=${temp.userName}`
     })
   },
 
@@ -255,7 +276,9 @@ Page({
         neirong: this.data.neirong,
         writer: this.data.writer,
         call: this.data.call,
-        sendTime: util.formatTime(new Date())
+        sendTime: util.formatTime(new Date()),
+        touxiang: this.data.userInfo.avatarUrl,
+        userName: this.data.userInfo.nickName
       },
       success: res => {
         wx.hideLoading()

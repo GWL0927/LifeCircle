@@ -104,7 +104,18 @@ Page({
             userInfo: {},
             openid: ''
           })
-          wx.clearStorage()
+          wx.setStorage({
+            key: 'openid',
+            value: ''
+          })
+          wx.setStorage({
+            key: 'login',
+            value: false
+          })
+          wx.setStorage({
+            key: 'userInfo',
+            value: {}
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

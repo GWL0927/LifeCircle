@@ -11,7 +11,8 @@ Page({
     lastId: '',
     roomId: 1,
     msg: [],
-    inputBottom: 0
+    inputBottom: 0,
+    donghua: ''
   },
   clone(target) {
     return JSON.parse(JSON.stringify(target))
@@ -70,7 +71,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: async function (options) {
     if (options && JSON.stringify(options) != "{}") {
       // 私聊
       wx.setNavigationBarTitle({
@@ -131,19 +132,48 @@ Page({
         }
       })
     }
+    await this.calcHeight('.main')
     wx.onKeyboardHeightChange(res => {
-      console.log(res.height)
       this.setData({
         inputBottom: res.height
       })
+      this.setData({
+        scrollHeight: this.data.cardHeight - res.height
+      })
+      this.translate()
     })
   },
-
+  calcHeight(x) {
+    return new Promise((resolve) => {
+      let self = this;
+      let query = wx.createSelectorQuery().in(this)
+      query.select(x).boundingClientRect()
+      query.exec(function (res) {
+        console.log(res[0])
+        self.setData({
+          cardHeight: res[0].height 
+        })
+        resolve();
+      })
+    })
+  },
+  translate() {
+    this.animation.bottom(this.data.inputBottom).step()
+    this.setData({
+      //输出动画
+      animation: this.animation.export()
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    //实例化一个动画
+    this.animation = wx.createAnimation({
+      // 动画持续时间，单位ms，默认值 400
+      duration: 220, 
+      timingFunction: 'ease-out'
+    })
   },
 
   /**

@@ -24,7 +24,9 @@ exports.main = async (event, context) => {
         neirong: event.neirong,
         writer: event.writer,
         call: event.call,
-        sendTime: event.sendTime
+        sendTime: event.sendTime,
+        touxiang: event.touxiang,
+        userName: event.userName
       }
     })
   } catch (e) {

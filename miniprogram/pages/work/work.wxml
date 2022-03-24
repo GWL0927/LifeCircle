@@ -1,7 +1,10 @@
 <view class="all">
   <block wx:for="{{dataList}}" wx:key="index">
     <view class="box" bindtap="go" data-id="{{item}}">
-      <view class="title">{{item.gangwei}}</view>
+      <view class="title">
+      <text>{{item.gangwei}}</text>
+        <image class="call" src="../../images/privateChat.png" catchtap="mychat" data-mychat="{{item}}" bubbles="{{ true }}"></image>
+      </view>
           <view class="line"></view>
       <view class="location">地点：{{item.didian}}</view>
       <view class="bottom">

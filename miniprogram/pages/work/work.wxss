@@ -21,8 +21,14 @@
 .title {
   font-weight: bolder;
   font-size: 40rpx;
+  display: flex;
+  justify-content: space-between;
 }
-
+.call {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 10rpx;
+}
 .location {
   color: grey;
 }

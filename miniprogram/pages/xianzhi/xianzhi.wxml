@@ -3,7 +3,10 @@
     <view class="box">
       <view class="top">
         <view class="title">{{item.name}}</view>
-        <view class="price">价格：{{item.price}} 元</view>
+        <view class="price">
+          <text>价格：{{item.price}} 元</text>
+          <image class="call" src="../../images/privateChat.png" catchtap="mychat" data-mychat="{{item}}" bubbles="{{ true }}"></image>
+        </view>
       </view>
       <view class="line"></view>
       <view class="info">
