@@ -6,6 +6,7 @@
     scroll-with-animation
     scroll-top="{{ scrollTop }}"
     scroll-into-view="{{ lastId }}"
+    bindscrolltoupper="tapTop"
   >
     <block wx:for="{{ msg }}" wx:key="index">
       <view wx:if="{{ item.allminutes > 1 }}" class="msgtime">{{ item._createTime }}</view>

@@ -1,0 +1,192 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "pages/work/work",
+          "pathName": "pages/work/work",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/xianzhi/xianzhi",
+          "pathName": "pages/xianzhi/xianzhi",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/biaobai/biaobai",
+          "pathName": "pages/biaobai/biaobai",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/temp/temp",
+          "pathName": "pages/temp/temp",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/work/work",
+          "pathName": "pages/work/work",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/lost/lost",
+          "pathName": "pages/lost/lost",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/xianzhi/xianzhi",
+          "pathName": "pages/xianzhi/xianzhi",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/xianzhi_send/xianzhi_send",
+          "pathName": "pages/xianzhi_send/xianzhi_send",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/lost/lost",
+          "pathName": "pages/lost/lost",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/lost/lost",
+          "pathName": "pages/lost/lost",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/xianzhi_send/xianzhi_send",
+          "pathName": "pages/xianzhi_send/xianzhi_send",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/lost/lost",
+          "pathName": "pages/lost/lost",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/send/send",
+          "pathName": "pages/send/send",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/temp/temp",
+          "pathName": "pages/temp/temp",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/send/send",
+          "pathName": "pages/send/send",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/biaobai/biaobai",
+          "pathName": "pages/biaobai/biaobai",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/biaobai/biaobai",
+          "pathName": "pages/biaobai/biaobai",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/chat/chat",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/chat/chat",
+          "query": "openid=ow0gA5PSGJCvr9LHjr8P7EK5Ho18&userName=测试号🐷",
+          "scene": null,
+          "launchMode": "default"
+        }
+      ]
+    }
+  }
+}

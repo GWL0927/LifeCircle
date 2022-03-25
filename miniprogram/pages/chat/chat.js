@@ -1,6 +1,8 @@
 // pages/chat/chat.js
 const db = wx.cloud.database();
 const _ = db.command
+const util = require('../util/util.js');
+
 Page({
   /**
    * 页面的初始数据
@@ -11,8 +13,9 @@ Page({
     lastId: '',
     roomId: 1,
     msg: [],
+    isTop: false, //标记触顶事件
     inputBottom: 0,
-    donghua: ''
+    animation: ''
   },
   clone(target) {
     return JSON.parse(JSON.stringify(target))
@@ -52,108 +55,195 @@ Page({
         lastTime: this.data.msg.length > 0 ? this.data.msg[this.data.msg.length - 1]._createTime : 0
       },
       success: res => {
-        console.log(res);
         this.setData({
           inputVal: ''
         })
       }
     })
   },
-  // 延迟页面向顶部滑动
-  delayPageScroll() {
-    const msg = this.data.mock;
-    const length = msg.length;
-    const lastId = msg[length - 1].id;
-    setTimeout(() => {
-      this.setData({ lastId });
-    }, 300);
+  // 触顶事件
+  tapTop() {
+    console.log('--触顶--')
+    this.setData({
+      isTop: true
+    }, () => {
+      this.getMsgHis()
+    })
+  },
+  getMsgHis() {
+    if (this.data.isTop) {
+      wx.showLoading({
+        title: '获取历史记录',
+        mask: true
+      })
+    }
+    wx.cloud.callFunction({
+      name: 'msghis',
+      data: {
+        toOpenid: this.data.toOpenid || '0',
+        msgDB: this.data.msgDB,
+        step: this.data.msg.length
+      },
+      success: res => {
+        let msgRes = res.result.data
+        let newsLen = msgRes.length
+        if (newsLen == 0) {
+          //查无数据
+          wx.showToast({
+            title: '暂无更多消息',
+            icon: 'none'
+          })
+        } else {
+          console.log(111,res.result.data);
+          msgRes = msgRes.reverse()
+          this.setData({
+            msg: [...msgRes, ...this.data.msg]
+          }, () => {
+            let len = this.data.msg.length
+            if (this.data.isTop) {
+              setTimeout(() => {
+                this.setData({
+                  lastId: msgRes[newsLen-1].id
+                })
+              }, 100)
+            } else {
+              setTimeout(() => {
+                this.setData({
+                  lastId: this.data.msg[len - 1].id
+                })
+              }, 100)
+            }
+          })
+        }
+      },
+      fail: err => {
+        console.log(err)
+      },
+      complete: res => {
+        wx.hideLoading()
+      }
+    })
+  },
+  initWatcher() {
+    if (this.data.msgDB == "private-msgs") {
+      this.msgWatcher = db.collection("private-msgs").where(
+        _.or([
+          {
+            roomId: this.data.toOpenid + '-' + this.data.openid,
+            _createTime: _.gt(util.formatTime(new Date()))
+          },
+          {
+            roomId: this.data.openid + '-' + this.data.toOpenid,
+            _createTime: _.gt(util.formatTime(new Date()))
+          }
+        ])
+      ).watch({
+        onChange: (res) => {
+          if (res.docs.length != 0) {
+            let newMsg = []
+            res.docChanges.forEach(item => {
+              newMsg.push(item.doc)
+            })
+            this.setData({
+              msg: [...this.data.msg, ...newMsg]
+            }, () => {
+              let len = this.data.msg.length
+              setTimeout(() => {
+                this.setData({
+                  lastId: this.data.msg[len - 1].id
+                })
+              }, 50)
+            })
+          }
+        },
+        onError: function (err) {
+          console.error('the watch closed because of error', err)
+        }
+      })
+    } else if (this.data.msgDB == "msgs") {
+      this.msgWatcher = db.collection("msgs").where({
+        roomId: this.data.roomId,
+        _createTime: _.gt(util.formatTime(new Date()))
+      }).watch({
+        onChange: (res) => {
+          if (res.docs.length != 0) {
+            let newMsg = []
+            res.docChanges.forEach(item => {
+              newMsg.push(item.doc)
+            })
+            this.setData({
+              msg: this.data.msg.concat(newMsg)
+            }, () => {
+              let len = this.data.msg.length
+              setTimeout(() => {
+                this.setData({
+                  lastId: this.data.msg[len - 1].id
+                })
+              }, 50)
+            })
+          }
+        },
+        onError: function (err) {
+          console.error('the watch closed because of error', err)
+        }
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
+  onLoad: function (options) {
     if (options && JSON.stringify(options) != "{}") {
       // 私聊
       wx.setNavigationBarTitle({
         title: options.userName
       })
-      wx.getStorage({
-        key: 'openid',
-        success: res => {
-          this.setData({
-            roomId: options.openid + '-' + res.data,
-            toOpenid: options.openid
-          })
-          db.collection("private-msgs").where(
-            _.or([
-              {
-                roomId: options.openid + '-' + res.data
-              },
-              {
-                roomId: res.data + '-' + options.openid
-              }
-            ])
-          )
-          .orderBy('_createTime', 'asc')
-          .watch({
-            onChange: res => {
-              this.setData({
-                msg: [...res.docs],
-                lastId: res.docs.length > 0 ? res.docs[res.docs.length - 1].id : 'msg0'
-              })
-            },
-            onError: err => {
-              console.error('the watch closed because of error', err)
-            }
-          })
-        }
-      })  
+      let openid = wx.getStorageSync('openid')
+      this.setData({
+        openid,
+        toOpenid: options.openid,
+        roomId: options.openid + '-' + openid,
+        msgDB: "private-msgs"
+      })
     } else {
       // 群聊
       wx.setNavigationBarTitle({
         title: '畅谈天地' 
       })
       this.setData({
-        roomId: 1
-      })
-      db.collection("msgs").where({
-        roomId: 1
-      })
-      .orderBy('_createTime', 'asc')
-      .watch({
-        onChange: res => {
-          this.setData({
-            msg: [...res.docs],
-            lastId: res.docs.length > 0 ? res.docs[res.docs.length - 1].id : 'msg0'
-          })
-        },
-        onError: err => {
-          console.error('the watch closed because of error', err)
-        }
+        roomId: 1,
+        msgDB: "msgs"
       })
     }
+    // 获取聊天记录
+    this.getMsgHis()
+
+    // 设置动画的属性值
+    this.setAnimation()
+
+  },
+  async setAnimation() {
+    // 设置聊天高度
     await this.calcHeight('.main')
+    // 监听键盘高度变化
     wx.onKeyboardHeightChange(res => {
       this.setData({
-        inputBottom: res.height
-      })
-      this.setData({
+        inputBottom: res.height,
         scrollHeight: this.data.cardHeight - res.height
       })
       this.translate()
     })
   },
+  // 获取元素的height
   calcHeight(x) {
     return new Promise((resolve) => {
-      let self = this;
       let query = wx.createSelectorQuery().in(this)
       query.select(x).boundingClientRect()
-      query.exec(function (res) {
-        console.log(res[0])
-        self.setData({
-          cardHeight: res[0].height 
+      query.exec((res) => {
+        this.setData({
+          cardHeight: res[0].height
         })
-        resolve();
+        resolve()
       })
     })
   },
@@ -174,38 +264,26 @@ Page({
       duration: 220, 
       timingFunction: 'ease-out'
     })
+    // 初始化聊天记录监听
+    this.initWatcher()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.getStorage({
-      key: 'openid',
-      success: res => {
-        this.setData({
-          openid: res.data
-        })
-      }
+    let openid = wx.getStorageSync('openid')
+    let login = wx.getStorageSync('login')
+    this.setData({
+      openid: !!login ? openid : '',
+      login: !!login ? login : false
     })
-    wx.getStorage({
-      key: 'login',
-      success: res => {
-        this.setData({
-          login: res.data
-        })
-      },
-      fail: res => {
-        this.setData({
-          login: false,
-          openid: ''
-        })
-        wx.showToast({
-          icon: "none",
-          title: '你还未登录'
-        })
-      }
-    })
+    if (!login) {
+      wx.showToast({
+        icon: "none",
+        title: '你还未登录'
+      })
+    }
   },
 
   /**
@@ -219,7 +297,12 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    try {
+      this.msgWatcher.close()
+      console.log('--消息监听器关闭--')
+    } catch (error) {
+      console.log('--消息监听器关闭失败--')
+    }
   },
 
   /**
