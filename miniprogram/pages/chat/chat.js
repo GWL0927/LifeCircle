@@ -133,18 +133,19 @@ Page({
   },
   initWatcher() {
     if (this.data.msgDB == "private-msgs") {
-      this.msgWatcher = db.collection("private-msgs").where(
+      this.msgWatcher = db.collection("private-msgs").where(_.and([
         _.or([
           {
-            roomId: this.data.toOpenid + '-' + this.data.openid,
-            _createTime: _.gt(util.formatTime(new Date()))
+            roomId: this.data.toOpenid + '-' + this.data.openid
           },
           {
-            roomId: this.data.openid + '-' + this.data.toOpenid,
-            _createTime: _.gt(util.formatTime(new Date()))
+            roomId: this.data.openid + '-' + this.data.toOpenid
           }
-        ])
-      ).watch({
+        ]),
+        {
+          _createTime: _.gt(util.formatTime(new Date()))
+        }
+      ])).watch({
         onChange: (res) => {
           if (res.docs.length != 0) {
             let newMsg = []
