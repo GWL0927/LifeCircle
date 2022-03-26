@@ -25,10 +25,10 @@ exports.main = async (event, context) => {
           roomId: openid + '-' + toOpenid
         }
       ])
-    ).skip(step).limit(10).orderBy('_createTime','desc').get();
+    ).skip(step).limit(15).orderBy('_createTime','desc').get();
   } else if (MSG == "msgs") {
     return await db.collection(MSG).where({
       roomId: 1
-    }).skip(step).limit(10).orderBy('_createTime','desc').get();
+    }).skip(step).limit(15).orderBy('_createTime','desc').get();
   }
 }

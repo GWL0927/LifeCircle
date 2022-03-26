@@ -89,6 +89,7 @@ exports.main = async (event, context) => {
         data: {
           id: 'msg' + new Date().getTime(),
           openid,
+          toOpenid,
           msgType,
           roomId,
           message,

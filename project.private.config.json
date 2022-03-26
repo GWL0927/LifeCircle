@@ -183,6 +183,20 @@
           "name": "",
           "pathName": "pages/chat/chat",
           "query": "openid=ow0gA5PSGJCvr9LHjr8P7EK5Ho18&userName=测试号🐷",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/chatList/chatList",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }
