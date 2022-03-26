@@ -63,11 +63,19 @@ Page({
   },
   // 触顶事件
   tapTop() {
+    let timeout = null;
+    if (this.data.isTop == true) {
+      clearTimeout(timeout);
+      return
+    }
     console.log('--触顶--')
     this.setData({
       isTop: true
     }, () => {
       this.getMsgHis()
+      timeout = setTimeout(() => {
+        this.data.isTop = false;
+      },1500);
     })
   },
   getMsgHis() {
@@ -94,7 +102,6 @@ Page({
             icon: 'none'
           })
         } else {
-          console.log(111,res.result.data);
           msgRes = msgRes.reverse()
           this.setData({
             msg: [...msgRes, ...this.data.msg]
@@ -103,15 +110,15 @@ Page({
             if (this.data.isTop) {
               setTimeout(() => {
                 this.setData({
-                  lastId: msgRes[newsLen-1].id
+                  lastId: msgRes[2].id
                 })
-              }, 100)
+              }, 50)
             } else {
               setTimeout(() => {
                 this.setData({
                   lastId: this.data.msg[len - 1].id
                 })
-              }, 100)
+              }, 50)
             }
           })
         }
@@ -189,6 +196,38 @@ Page({
       })
     }
   },
+  async setAnimation() {
+    // 设置聊天高度
+    await this.calcHeight('.main')
+    // 监听键盘高度变化
+    wx.onKeyboardHeightChange(res => {
+      this.setData({
+        inputBottom: res.height,
+        scrollHeight: this.data.cardHeight - res.height
+      })
+      this.translate()
+    })
+  },
+  // 获取元素的height
+  calcHeight(x) {
+    return new Promise((resolve) => {
+      let query = wx.createSelectorQuery().in(this)
+      query.select(x).boundingClientRect()
+      query.exec((res) => {
+        this.setData({
+          cardHeight: res[0].height
+        })
+        resolve()
+      })
+    })
+  },
+  translate() {
+    this.animation.bottom(this.data.inputBottom).step()
+    this.setData({
+      //输出动画
+      animation: this.animation.export()
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -222,38 +261,7 @@ Page({
     this.setAnimation()
 
   },
-  async setAnimation() {
-    // 设置聊天高度
-    await this.calcHeight('.main')
-    // 监听键盘高度变化
-    wx.onKeyboardHeightChange(res => {
-      this.setData({
-        inputBottom: res.height,
-        scrollHeight: this.data.cardHeight - res.height
-      })
-      this.translate()
-    })
-  },
-  // 获取元素的height
-  calcHeight(x) {
-    return new Promise((resolve) => {
-      let query = wx.createSelectorQuery().in(this)
-      query.select(x).boundingClientRect()
-      query.exec((res) => {
-        this.setData({
-          cardHeight: res[0].height
-        })
-        resolve()
-      })
-    })
-  },
-  translate() {
-    this.animation.bottom(this.data.inputBottom).step()
-    this.setData({
-      //输出动画
-      animation: this.animation.export()
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
