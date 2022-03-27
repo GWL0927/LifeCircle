@@ -113,22 +113,10 @@ Page({
       didian: event.detail.value
     })
   },
-  gongsi(event) {
-    // console.log("输入的内容", event.detail.value)
-    this.setData({
-      gongsi: event.detail.value
-    })
-  },
   daiyu(event) {
     // console.log("输入的内容", event.detail.value)
     this.setData({
       daiyu: event.detail.value
-    })
-  },
-  yaoqiu(event) {
-    // console.log("输入的内容", event.detail.value)
-    this.setData({
-      yaoqiu: event.detail.value
     })
   },
   shijian(event) {
@@ -189,9 +177,7 @@ Page({
   publish: function () {
     let gangwei = this.data.gangwei
     let didian = this.data.didian
-    let gongsi = this.data.gongsi
     let daiyu = this.data.daiyu
-    let yaoqiu = this.data.yaoqiu
     let shijian = this.data.shijian
     let neirong = this.data.neirong
     let writer = this.data.writer
@@ -211,24 +197,10 @@ Page({
       })
       return
     }
-    if (!gongsi) {
-      wx.showToast({
-        icon: "none",
-        title: '公司名称不能为空'
-      })
-      return
-    }
     if (!daiyu) {
       wx.showToast({
         icon: "none",
         title: '工资不能为空'
-      })
-      return
-    }
-    if (!yaoqiu) {
-      wx.showToast({
-        icon: "none",
-        title: '应聘要求不能为空'
       })
       return
     }
@@ -269,9 +241,7 @@ Page({
       data: {
         gangwei: this.data.gangwei,
         didian: this.data.didian,
-        gongsi: this.data.gongsi,
         daiyu: this.data.daiyu,
-        yaoqiu: this.data.yaoqiu,
         shijian: this.data.shijian,
         neirong: this.data.neirong,
         writer: this.data.writer,
@@ -291,9 +261,7 @@ Page({
         this.setData({
           gangwei: null,
           didian: null,
-          gongsi: null,
           daiyu: null,
-          yaoqiu: null,
           shijian: null,
           neirong: null,
           writer: null,

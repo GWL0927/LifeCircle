@@ -11,7 +11,7 @@ Page({
     isLeave: false,
     toRoomId: ''
   },
-  async init() {
+  init() {
     if (this.data.openid) {
       this.getMsgList()
       this.setData({
@@ -89,13 +89,14 @@ Page({
           let obj = {
             ...item,
             ...item.userInfo,
-            isShow: true,
-            isRed: true
+            isShow: true
           }
           msgList.push(obj)
         }
       }
     })
+
+    // 消息更新和删除显示设置
     let msgListRes1 = wx.getStorageSync('msgList') // 先获取缓存的列表
     if (msgListRes1.length > 0) {
       msgListRes1.forEach((item1) => {
@@ -108,6 +109,7 @@ Page({
             } else {
               // 更新了，则展示
               msgList[index].isShow = true
+              msgList[index].isRed = true
               // 判断用户是否在聊天界面，且该聊天界面是否是新消息的聊天
               if (this.data.isLeave && item.roomId == this.data.toRoomId) {
                 msgList[index].isRed = false
@@ -117,15 +119,6 @@ Page({
         })
       })
     }
-
-    // 将消息列表写入到缓存
-    wx.setStorageSync('msgList', [...msgList])
-    // 获取缓存中消息列表，并赋值给data中的msgList
-    let msgListRes = wx.getStorageSync('msgList')
-    this.setData({
-      msgList: [...msgListRes]
-    })
-
     // 消息列表中只要有一条中的isRed是true，则显示tabbar的红点
     let isBarRed = msgList.some((item) => {
       return item.isRed == true
@@ -144,6 +137,14 @@ Page({
         });
       }
     }
+
+    // 将消息列表写入到缓存
+    wx.setStorageSync('msgList', [...msgList])
+    // 获取缓存中消息列表，并赋值给data中的msgList
+    let msgListRes = wx.getStorageSync('msgList')
+    this.setData({
+      msgList: [...msgListRes]
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -153,7 +154,6 @@ Page({
     this.setData({
       openid
     })
-    // this.init()
   },
 
   /**

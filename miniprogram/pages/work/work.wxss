@@ -85,7 +85,7 @@
 
 .send_box {
   width: 70vw;
-  height: 90vh;
+  height: 80vh;
   background-color: #f2f1f6;
   border-radius: 20rpx;
   margin: auto;
@@ -100,7 +100,7 @@
 }
 
 .top {
-  height: 100rpx;
+  height: 70rpx;
   background-color: #f2f1f6;
   font-weight: bolder;
   font-size: 40rpx;
@@ -112,8 +112,7 @@
 }
 
 .center input {
-  width: 90%;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
   margin: auto;
   margin-top: 20rpx;
   padding: 10rpx;
@@ -122,8 +121,7 @@
 }
 
 textarea {
-  width: 90%;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
   margin: auto;
   margin-top: 20rpx;
   padding: 10rpx;

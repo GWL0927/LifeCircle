@@ -64,9 +64,11 @@ Component({
     onReady: function() {
     },
     mychat(e) {
+      if (this.data.obj.roomId != 1) {
+        return false;
+      }
       let temp = e.currentTarget.dataset.mychat
-      console.log(e);
-      if (temp._openid == this.data.openid) {
+      if (temp.toOpenid == this.data.openid) {
         wx.showToast({
           title: '不能私信自己！',
           icon: 'none'

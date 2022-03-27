@@ -2,13 +2,7 @@
   <van-cell-group title="岗位信息" inset>
     <van-cell title="兼职岗位" value="{{item.gangwei}}" />
     <van-cell title="兼职地点" value="{{item.didian}}" />
-    <van-cell title="公司名称" value="{{item.gongsi}}" />
-    <van-cell title="薪资（元/月）" value="{{item.daiyu}}" />
-    <van-collapse value="{{ activeNames }}" bind:change="onChange" border="{{false}}">
-      <van-collapse-item title="应聘要求" name="1">
-        <text>{{item.yaoqiu}}</text>
-      </van-collapse-item>
-    </van-collapse>
+    <van-cell title="工资待遇" value="{{item.daiyu}}" />
   </van-cell-group>
   <van-cell-group title="工作信息" inset>
     <van-cell title="工作时间" value="{{item.shijian}}" />

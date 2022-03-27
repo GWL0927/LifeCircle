@@ -2,14 +2,14 @@
   <block wx:for="{{dataList}}" wx:key="index">
     <view class="box" bindtap="go" data-id="{{item}}">
       <view class="title">
-      <text>{{item.gangwei}}</text>
+        <text>{{item.gangwei}}</text>
         <image class="call" src="../../images/privateChat.png" catchtap="mychat" data-mychat="{{item}}" bubbles="{{ true }}"></image>
       </view>
-          <view class="line"></view>
+      <view class="line"></view>
       <view class="location">地点：{{item.didian}}</view>
       <view class="bottom">
-        <view class="location">要求：{{item.yaoqiu}}</view>
-        <view class="location">工资：{{item.daiyu}} 元/月</view>
+        <view class="location">工资待遇：{{item.daiyu}}</view>
+        <view class="location">工作内容：{{item.neirong}}</view>
       </view>
       <view class="box_bottom" wx:if="{{openid==item._openid}}">
         <view class="delete" catchtap="delete" data-t="{{item}}">删除</view>
@@ -30,16 +30,19 @@
     <view class="send_box">
       <view class="top">发布兼职</view>
       <view class="center">
-        <input placeholder="请输入兼职岗位" bindinput="gangwei"></input>
-        <input placeholder="请输入兼职地点" bindinput="didian"></input>
-        <input placeholder="请输入公司名称" bindinput="gongsi"></input>
-        <input placeholder="请输入工资/月" bindinput="daiyu"></input>
-        <textarea placeholder="请输入应聘要求" bindinput="yaoqiu" fixed="ture"></textarea>
-        <input placeholder="请输入工作时间" bindinput="shijian"></input>
-        <textarea placeholder="请输入工作内容" bindinput="neirong" fixed="ture"></textarea>
-        <input placeholder="请输入您的称呼" bindinput="writer"></input>
-        <input placeholder="请输入联系电话" bindinput="call"></input>
-
+        <van-cell-group title="岗位信息" inset>
+          <input placeholder="请输入兼职岗位" bindinput="gangwei"></input>
+          <input placeholder="请输入兼职地点" bindinput="didian"></input>
+          <input placeholder="请输入工资待遇" bindinput="daiyu"></input>
+        </van-cell-group>
+        <van-cell-group title="工作信息" inset>
+          <input placeholder="请输入工作时间" bindinput="shijian"></input>
+          <textarea placeholder="请输入工作内容" bindinput="neirong" fixed="ture"></textarea>
+        </van-cell-group>
+        <van-cell-group title="发布者信息" inset>
+          <input placeholder="请输入您的称呼" bindinput="writer"></input>
+          <input placeholder="请输入联系电话" bindinput="call"></input>
+        </van-cell-group>
       </view>
       <view class="send_button">
         <button class="b1" bindtap="close">取消</button>
