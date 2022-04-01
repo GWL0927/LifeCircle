@@ -1,7 +1,8 @@
 <!--components/bubble /bubble.wxml-->
   <view id="{{ obj.id }}" class="container-right" wx:if="{{ obj.openid == openid }}">
     <view class="content-right">
-      <text>{{ obj.message }}</text>
+      <text wx:if="{{obj.msgType == 'text'}}">{{ obj.message }}</text>
+      <image wx:else src="{{obj.content}}" mode="widthFix" data-img='{{[obj.content]}}' bindtap="previewImg"></image>
     </view> 
     <view class="icon-right">
       <view class="photo">
@@ -20,9 +21,11 @@
     </view>
     <text class="nickname" wx:if="{{ obj.roomId == 1 }}">{{obj.userInfo.nickName}}</text>
     <view wx:if="{{ obj.roomId == 1 }}" class="content translate10Y">
-      <text>{{ obj.message }}</text>
+      <text wx:if="{{obj.msgType == 'text'}}">{{ obj.message }}</text>
+      <image wx:else src="{{obj.content}}" mode="widthFix" data-img='{{[obj.content]}}' bindtap="previewImg"></image>
     </view>
     <view wx:else class="content">
-      <text>{{ obj.message }}</text>
+      <text wx:if="{{obj.msgType == 'text'}}">{{ obj.message }}</text>
+      <image wx:else src="{{obj.content}}" mode="widthFix" data-img='{{[obj.content]}}' bindtap="previewImg"></image>
     </view>
   </view>

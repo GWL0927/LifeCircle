@@ -24,8 +24,6 @@
       bindconfirm="inputSend"
       bindfocus="onFocus"
       />
-    <!-- <button 
-      type="primary" 
-      bindtap="inputSend">发送</button> -->
+      <image src="../../images/jiahao.png" bindtap="ImgSend"></image>
   </view>
 </view>

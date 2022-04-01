@@ -16,9 +16,9 @@ Component({
   data: {
 
   },
-  
+
   lifetimes: {
-    attached: function() {
+    attached: function () {
       // 在组件实例进入页面节点树时执行
       wx.getStorage({
         key: 'openid',
@@ -29,12 +29,12 @@ Component({
         }
       })
     },
-    detached: function() {
+    detached: function () {
       // 在组件实例被从页面节点树移除时执行
     }
   },
   pageLifetimes: {
-    show: function() {
+    show: function () {
       // 页面被展示
       wx.getStorage({
         key: 'openid',
@@ -50,10 +50,10 @@ Component({
         }
       })
     },
-    hide: function() {
+    hide: function () {
       // 页面被隐藏
     },
-    resize: function(size) {
+    resize: function (size) {
       // 页面尺寸变化
     }
   },
@@ -61,8 +61,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    onReady: function() {
-    },
+    onReady: function () {},
     mychat(e) {
       if (this.data.obj.roomId != 1) {
         return false;
@@ -77,6 +76,14 @@ Component({
       }
       wx.navigateTo({
         url: `../chat/chat?openid=${temp.openid}&userName=${temp.userInfo.nickName}`
+      })
+    },
+    // 预览图片
+    previewImg: function (e) {
+      let imgData = e.currentTarget.dataset.img;
+      wx.previewImage({
+        current: imgData[0], // 当前显示图片的http链接
+        urls: imgData // 需要预览的图片http链接列表
       })
     },
   }

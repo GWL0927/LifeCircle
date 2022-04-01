@@ -47,7 +47,7 @@ Page({
     }
     wx.cloud.callFunction({
       name: 'chatmsg',
-      data: {        
+      data: {
         toOpenid: this.data.toOpenid || this.data.openid,
         roomId: this.data.roomId,
         msgType: 'text',
@@ -57,6 +57,55 @@ Page({
       success: res => {
         this.setData({
           inputVal: ''
+        })
+      }
+    })
+  },
+  ImgSend() {
+    if (!this.data.login) {
+      wx.showToast({
+        title: '请先登录！',
+        icon: 'none'
+      })
+      return false;
+    }
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: res => {
+        let filePath = res.tempFilePaths[0]
+        let suffix = /\.\w+$/.exec(filePath)[0]; //正则表达式返回文件的扩展名
+        wx.getFileSystemManager().readFile({
+          filePath: filePath, //选择图片返回的相对路径
+          encoding: 'base64', //编码格式
+          success: res => { //成功的回调
+            var bufferData = res.data;
+            wx.showLoading({
+              title: '信息发送',
+              mask: true
+            })
+            wx.cloud.callFunction({
+              name: 'chatmsg',
+              data: {
+                toOpenid: this.data.toOpenid || this.data.openid,
+                roomId: this.data.roomId,
+                msgType: 'image',
+                content: bufferData,
+                suffix,
+                lastTime: this.data.msg.length > 0 ? this.data.msg[this.data.msg.length - 1]._createTime : 0
+              },
+              success: res => {
+
+              },
+              fail: res => {
+                console.log(2, res)
+              },
+              complete: res => {
+                wx.hideLoading();
+              }
+            })
+          }
         })
       }
     })
@@ -75,7 +124,7 @@ Page({
       this.getMsgHis()
       timeout = setTimeout(() => {
         this.data.isTop = false;
-      },1500);
+      }, 1500);
     })
   },
   getMsgHis() {
@@ -134,8 +183,7 @@ Page({
   initWatcher() {
     if (this.data.msgDB == "private-msgs") {
       this.msgWatcher = db.collection("private-msgs").where(_.and([
-        _.or([
-          {
+        _.or([{
             roomId: this.data.toOpenid + '-' + this.data.openid
           },
           {
@@ -147,6 +195,7 @@ Page({
         }
       ])).watch({
         onChange: (res) => {
+          console.log(res);
           if (res.docs.length != 0) {
             let newMsg = []
             res.docChanges.forEach(item => {
@@ -174,13 +223,14 @@ Page({
         _createTime: _.gt(util.formatTime(new Date()))
       }).watch({
         onChange: (res) => {
+          console.log(res);
           if (res.docs.length != 0) {
             let newMsg = []
             res.docChanges.forEach(item => {
               newMsg.push(item.doc)
             })
             this.setData({
-              msg: this.data.msg.concat(newMsg)
+              msg: [...this.data.msg, ...newMsg]
             }, () => {
               let len = this.data.msg.length
               setTimeout(() => {
@@ -248,7 +298,7 @@ Page({
     } else {
       // 群聊
       wx.setNavigationBarTitle({
-        title: '畅谈天地' 
+        title: '畅谈天地'
       })
       this.setData({
         roomId: 1,
@@ -261,6 +311,7 @@ Page({
     // 设置动画的属性值
     this.setAnimation()
 
+
   },
 
   /**
@@ -270,7 +321,7 @@ Page({
     //实例化一个动画
     this.animation = wx.createAnimation({
       // 动画持续时间，单位ms，默认值 400
-      duration: 220, 
+      duration: 220,
       timingFunction: 'ease-out'
     })
     // 初始化聊天记录监听

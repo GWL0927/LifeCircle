@@ -51,6 +51,11 @@
 .content > text, .content-right > text {
   line-height: 24px;
 }
+.content > image, .content-right > image {
+  line-height: 24px;
+  max-width: 100%;
+  border-radius: 4px;
+}
 .icon-right {
   width: 36px;
   height: 36px;
