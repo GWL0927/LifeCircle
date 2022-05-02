@@ -9,14 +9,14 @@ Page({
   data: {
     msgList: [],
     isLeave: false,
-    toRoomId: ''
+    toRoomId: []
   },
   init() {
     if (this.data.openid) {
       this.getMsgList()
       this.setData({
         isLeave: false,
-        toRoomId: ''
+        toRoomId: []
       })
     } else {
       this.setData({
@@ -35,7 +35,7 @@ Page({
     this.setData({
       msgList: this.data.msgList,
       isLeave: true,
-      toRoomId: _openid + '-' + this.data.openid
+      toRoomId: [_openid + '-' + this.data.openid, this.data.openid + '-' + _openid]
     })
     wx.setStorageSync('msgList', [...this.data.msgList])
     wx.navigateTo({
@@ -111,7 +111,7 @@ Page({
               msgList[index].isShow = true
               msgList[index].isRed = true
               // 判断用户是否在聊天界面，且该聊天界面是否是新消息的聊天
-              if (this.data.isLeave && item.roomId == this.data.toRoomId) {
+              if (this.data.isLeave && this.data.toRoomId.includes(item.roomId)) {
                 msgList[index].isRed = false
               }
             }
