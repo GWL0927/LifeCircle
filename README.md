@@ -13,5 +13,5 @@ wx.cloud.init({
     traceUser: true
 })
 ```
-3. 创建对应的五个数据库集合（biaobai、found、lost、xianzhi、jianzhi）
-4. 将 cloudfunctions 文件下的四个文件上传云函数部署（右键点击，选择第三个选项“上传并部署：云端安装环境”）
+3. 创建对应的9个数据库集合（biaobai、found、lost、xianzhi、jianzhi、users、msgs、private-msgs、msg-list）
+4. 将 cloudfunctions 文件下的7个文件上传云函数部署（右键点击，选择第三个选项“上传并部署：云端安装环境”）
